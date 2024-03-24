@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include "AbstractMachine.h"
+#include <locale.h>
+#inlcude "Funcs.h"
 
 
 // transfer amount from bankaccount a to bankaccount b
