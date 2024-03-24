@@ -62,7 +62,7 @@ static char Printdate(BankAccount *A){
   }
   return *Date_str;
 }
-char CheckHistory(BankAccount *A){
+void CheckHistory(BankAccount *A){
   Transaction **Temp;
   CreateNewTran(Temp);
   *Temp = A->transactionList;
