@@ -1,8 +1,7 @@
-#include <stdlib.h>
+#include <locale.h>
+#include <stdio.h>
 #include "AbstractMachine.h"
-
-
-// transfer amount from bankaccount a to bankaccount b
+#include "Funcs.h"
 void TransferAmount(BankAccount *A, BankAccount *B, float Amount){
   // transfering 
   B->Balance = B->Balance + Amount;
@@ -35,4 +34,42 @@ void TransferAmount(BankAccount *A, BankAccount *B, float Amount){
   (*Temp_B)->nextTransaction = *NewB;
   AssignTranData(*NewB, 'D', Date, Amount);
 }
+
+int CheckAmount(BankAccount *A){
+  return A->Balance;
+}
+
+
+// here we define a function to printout the date
+static char Printdate(BankAccount *A){
+  Date Date;
+  int i;
+  char Date_str[9] = {0};// to store the characters of the date arrays 
+  // initialized with null terminator
+  int n = 0;
+  // we will use a function called sprintf to convert our array of integers into an array 
+  // of characters 
+  for (i=0; i<=4; ++i){
+    n += sprintf (&Date_str[n], "%d.", A->transactionList->Date.Year[i]);
+  }
+  i = 0;
+  for (i=0; i<=2; i++) {
+    n += sprintf (&Date_str[n], "%d.", A->transactionList->Date.Month[i]);
+  }
+  i = 0;
+  for (i=0; i<=2; i++) {
+    n += sprintf (&Date_str[n], "%d", A->transactionList->Date.Day[i]);
+  }
+  return *Date_str;
+}
+char CheckHistory(BankAccount *A){
+  Transaction **Temp;
+  CreateNewTran(Temp);
+  *Temp = A->transactionList;
+  while(Temp != NULL){
+    Printdate(A);
+    *Temp = next_Transaction(*Temp);
+  }
+}
+
 
