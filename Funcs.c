@@ -36,3 +36,40 @@ void TransferAmount(BankAccount *A, BankAccount *B, float Amount){
   AssignTranData(*NewB, 'D', Date, Amount);
 }
 
+int CheckAmount(BankAccount *A){
+  return A->Balance;
+}
+
+
+// here we define a function to printout the date
+static void Printdate(BankAccount *A){
+  Date Date;
+  int i;
+  char Date_str[9] = {0};// to store the characters of the date arrays 
+  // initialized with null terminator
+  int n = 0;
+  // we will use a function called sprintf to "convert" our array of integers into an array 
+  // of characters 
+  for (i=0; i<=4; ++i){
+    n += sprintf (&Date_str[n], "%d.", A->transactionList->Date.Year[i]);
+  }
+  i = 0;
+  for (i=0; i<=2; i++) {
+    n += sprintf (&Date_str[n], "%d.", A->transactionList->Date.Month[i]);
+  }
+  i = 0;
+  for (i=0; i<=2; i++) {
+    n += sprintf (&Date_str[n], "%d", A->transactionList->Date.Day[i]);
+  }
+}
+void CheckHistory(BankAccount *A){
+  Transaction **Temp;
+  CreateNewTran(Temp);
+  *Temp = A->transactionList;
+  while(Temp != NULL){
+    Printdate(A);
+    *Temp = next_Transaction(*Temp);
+  }
+}
+
+
