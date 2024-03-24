@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include "AbstractMachine.h"
-#include <locale.h>
 #inlcude "Funcs.h"
+// for sprintf I suppose
+#include <locale.h>
 
 
 // transfer amount from bankaccount a to bankaccount b
