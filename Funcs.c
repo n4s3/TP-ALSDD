@@ -1,7 +1,8 @@
 #include <locale.h>
 #include <stdio.h>
 #include "AbstractMachine.h"
-#include "Funcs.h"
+// for sprintf I suppose
+#include <locale.h>
 void TransferAmount(BankAccount *A, BankAccount *B, float Amount){
   // transfering 
   B->Balance = B->Balance + Amount;
@@ -48,6 +49,7 @@ static char Printdate(BankAccount *A){
   // initialized with null terminator
   int n = 0;
   // we will use a function called sprintf to convert our array of integers into an array 
+  // we will use a function called sprintf to "convert" our array of integers into an array 
   // of characters 
   for (i=0; i<=4; ++i){
     n += sprintf (&Date_str[n], "%d.", A->transactionList->Date.Year[i]);
@@ -66,8 +68,10 @@ void CheckHistory(BankAccount *A){
   Transaction **Temp;
   CreateNewTran(Temp);
   *Temp = A->transactionList;
+  char *DateStr;
   while(Temp != NULL){
-    Printdate(A);
+    *DateStr = Printdate(A);
+    printf("\n%s\n\n", DateStr);
     *Temp = next_Transaction(*Temp);
   }
 }
