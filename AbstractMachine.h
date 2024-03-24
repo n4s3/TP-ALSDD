@@ -16,10 +16,10 @@ struct Date {
 typedef struct Date Date;
 // The record of the transaction Node points to the next_transaction
 struct Transaction {
-  char opcode[1];
+  char opcode[1]; // T:Transfer D:Deposit W:Withdrawal
   Date Date;
-  int Balance;
- struct Transaction *adrr;
+  float Balance;
+ struct Transaction *nextTransaction;
 };
 typedef struct Transaction Transaction;
 
@@ -27,20 +27,23 @@ struct BankAccount {
   int Number;
   int Code;
   Name Name;
-  int Balance;
-  struct BankAccount *adr;
-  struct Transaction *addr;
+  float Balance;
+  struct BankAccount *nextBAcc;
+  struct Transaction *transactionList;
 };
 typedef struct BankAccount BankAccount;
 // The AbstarctMachineFunctions
 void createAccount(BankAccount **p);
 void DeleteAccount (BankAccount *p);
-void ass_adr(BankAccount *p ,BankAccount *q);
-void ass_addr(BankAccount *p , Transaction *q);
-BankAccount *nextAccount(BankAccount *p);
-BankAccount *nextOpp(BankAccount *p);
-void ass_data (BankAccount *p , Transaction *q , int N , int c , Name Na , int b);
-void allocateopp(Transaction **p);
-Transaction *Nextopp(Transaction *p);
-void ass_date(Transaction *p ,Date D);
+void AssignAccount(BankAccount *p ,BankAccount *q);
+void AssignList(BankAccount *p , Transaction *q);
+BankAccount *next_Account(BankAccount *p);
+Transaction *next_Transaction(Transaction *p);
+// miskate here
+void AssignData(BankAccount *p , Transaction *q , int N , int c , Name Na , int b);
+void CreateNewTran(Transaction **p);
+void Ass_Date(Transaction *p ,Date D);
+void TransferAmount(BankAccount *A, BankAccount *B, float Amount);
+void AssignTranData(Transaction *p, char o, Date D, float B); // modified 
+void AssignAccData(BankAccount *p, int N, int C, Name Na, float B); // modified
 #endif
