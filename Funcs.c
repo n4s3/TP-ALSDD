@@ -11,7 +11,7 @@ void TransferAmount(BankAccount *A, BankAccount *B, float Amount){
   // allocating a temptran
   Transaction *Temp_A;
   CreateNewTran(&Temp_A);
-  *Temp_A = A->transactionList;
+  Temp_A = A->transactionList;
 
   Transaction *Temp_B;
   CreateNewTran(&Temp_B);
@@ -81,11 +81,11 @@ p = h;
 while ( Number <> p->Number ) {
 p = nextAcc(p);
 } // to get the wanted acccount ; with the  number ;  
-p -> Balalnce = p -> Balance + D ; 
+p -> Balalnce = p -> Balance + De ; 
 Transaction *New_A ;
 CreateNewTran(&New_A); // to put the new ooperation in this node ;
-AssignTranData(h , New_A,'D' , De) ; //assign data to the opperation 
-AssignDate(New_A,D);
+AssignTranData(h , New_A,'D', D , De) ; //assign data to the opperation 
+
 Transaction *Temp_B; 
 CreateNewTran(&Temp_B);
 Temp_B= p -> TransactionList ; // to get the head of the opeeration ; 
@@ -97,6 +97,7 @@ while ( Temp_B != NULL ){
 AssignTranList( Temp_B , New_A);// assign to the anciet node the adress of the new node; 
 AssignTranList( New_A , NULL); //  assign null to the new node;
  }
+void 
 
 
 
