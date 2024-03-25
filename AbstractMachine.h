@@ -16,7 +16,7 @@ struct Date {
 typedef struct Date Date;
 // The record of the transaction Node points to the next_transaction
 struct Transaction {
-  char opcode[1]; // T:Transfer D:Deposit W:Withdrawal
+  char opcode; // T:Transfer D:Deposit W:Withdrawal
   Date Date;
   float Balance;
  struct Transaction *nextTransaction;
