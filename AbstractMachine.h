@@ -36,8 +36,8 @@ typedef struct BankAccount BankAccount;
 void createAccount(BankAccount **p);
 void DeleteAccount (BankAccount *p);
 void AssignAccount(BankAccount *p ,BankAccount *q);
-void AssignList(BankAccount *p , Transaction *q);// to the Account 
-void AssignList ( Transaction *p , Transaction *q); // like assign_adr(p,q);between the nodes of transactions 
+void AssignList(BankAccount *p , Transaction *q);// 
+void AssignList ( Transaction *p , Transaction *q); // like assign_adr(p,q);between nodes hab=ve the type transaction like AssignAccount 
 BankAccount *next_Account(BankAccount *p);
 Transaction *next_Transaction(Transaction *p);
 // miskate here
