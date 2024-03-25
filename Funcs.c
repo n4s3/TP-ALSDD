@@ -23,7 +23,7 @@ void TransferAmount(BankAccount *A, BankAccount *B, float Amount){
   (*Temp_A)->nextTransaction = *NewA;
   // This date is going to be changed of course 
   Date Date;
-  AssignTranData(*NewA, 'T', Date, Amount);
+  AssignTranData(A,*NewA, 'T', Date, Amount);
 
   *Temp_B = B->transactionList;
   while (Temp_B != NULL) {
@@ -33,7 +33,7 @@ void TransferAmount(BankAccount *A, BankAccount *B, float Amount){
   Transaction **NewB;
   CreateNewTran(NewB);
   (*Temp_B)->nextTransaction = *NewB;
-  AssignTranData(*NewB, 'D', Date, Amount);
+  AssignTranData(B,*NewB, 'D', Date, Amount);
 }
 
 int CheckAmount(BankAccount *A){
@@ -48,7 +48,6 @@ static char Printdate(BankAccount *A){
   char Date_str[9] = {0};// to store the characters of the date arrays 
   // initialized with null terminator
   int n = 0;
-  // we will use a function called sprintf to convert our array of integers into an array 
   // we will use a function called sprintf to "convert" our array of integers into an array 
   // of characters 
   for (i=0; i<=4; ++i){

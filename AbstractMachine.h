@@ -40,10 +40,10 @@ void AssignList(BankAccount *p , Transaction *q);
 BankAccount *next_Account(BankAccount *p);
 Transaction *next_Transaction(Transaction *p);
 // miskate here
-void AssignData(BankAccount *p , Transaction *q , int N , int c , Name Na , int b);
+// void AssignData(BankAccount *p , Transaction *q , int N , int c , Name Na , int b);
 void CreateNewTran(Transaction **p);
 void Ass_Date(Transaction *p ,Date D);
 void TransferAmount(BankAccount *A, BankAccount *B, float Amount);
-void AssignTranData(Transaction *p, char o, Date D, float B); // modified 
+void AssignTranData(BankAccount *q,Transaction *p, char o, Date D, float B); // modified 
 void AssignAccData(BankAccount *p, int N, int C, Name Na, float B); // modified
 #endif
