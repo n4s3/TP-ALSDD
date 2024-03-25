@@ -84,6 +84,7 @@ h = nextAcc(h);
 h -> Balalnce = h-> Balance + D ; 
 Transaction **New_A ;
 CreateNewTran(&New_A);
+AssignTranData(h , New_A,
 
 
 
