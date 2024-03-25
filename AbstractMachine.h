@@ -45,6 +45,6 @@ Transaction *next_Transaction(Transaction *p);
 void CreateNewTran(Transaction **p);
 void Ass_Date(Transaction *p ,Date D);
 void TransferAmount(BankAccount *A, BankAccount *B, float Amount);
-void AssignTranData(BankAccount *q,Transaction *p, char o, Date D, float B); // modified 
+void AssignTranData(BankAccount *q,Transaction *p, char o, float B); // modified 
 void AssignAccData(BankAccount *p, int N, int C, Name Na, float B); // modified
 #endif
