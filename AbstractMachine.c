@@ -62,3 +62,6 @@ void AssignTranData(Transaction *p, char o, Date D, float B){
   p->Date = D;
   CopyChar(p->opcode, o);
 }
+void AssignTranList(Transaction *p , Transaction *q ){
+ p -> nextTransaction = q ; 
+}
