@@ -43,7 +43,7 @@ void Ass_Date(Transaction *p ,Date D){
   CopyArray(4, p->Date.Year, D.Year);
   CopyArray(2, p->Date.Month, D.Month);
   CopyArray(2, p->Date.Day, D.Day);
-}
+} // assign the date directly we do not need this
 
 // Assign Data of a BankAccount(Edit)
 void AssignAccData(BankAccount *p, int N, int C, Name Na, float B){
@@ -57,8 +57,9 @@ static char CopyChar(char *A, char X){
   A[0] = X;
   return *A;
 }
-void AssignTranData(Transaction *p, char o, float B){
+void AssignTranData(Transaction *p, char o,Date D , float B){
   p->Balance = B;
+  p ->Date = D;
   opcode = o;
 } // changed we assign directly the leter to the transaction type 
 void AssignTranList(Transaction *p , Transaction *q ){
