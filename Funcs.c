@@ -84,7 +84,8 @@ p = nextAcc(p);
 p -> Balalnce = p -> Balance + D ; 
 Transaction *New_A ;
 CreateNewTran(&New_A); // to put the new ooperation in this node ;
-AssignTranData(h , New_A,'D', D , De) ; assign data to the opperation 
+AssignTranData(h , New_A,'D' , De) ; //assign data to the opperation 
+AssignDate(New_A,D);
 Transaction *Temp_B; 
 CreateNewTran(&Temp_B);
 Temp_B= p -> TransactionList ; // to get the head of the opeeration ; 
