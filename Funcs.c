@@ -9,31 +9,31 @@ void TransferAmount(BankAccount *A, BankAccount *B, float Amount){
   A->Balance = A->Balance - Amount;
   // creating the transaction nodes 
   // allocating a temptran
-  Transaction **Temp_A;
-  CreateNewTran(Temp_A);
+  Transaction *Temp_A;
+  CreateNewTran(&Temp_A);
   *Temp_A = A->transactionList;
 
-  Transaction **Temp_B;
-  CreateNewTran(Temp_B);
+  Transaction *Temp_B;
+  CreateNewTran(&Temp_B);
   while (Temp_A != NULL) {
     *Temp_A = next_Transaction(*Temp_A);
   }
-  Transaction **NewA;
-  CreateNewTran(NewA);
-  (*Temp_A)->nextTransaction = *NewA;
+  Transaction *NewA;
+  CreateNewTran(&NewA);
+  Temp_A->nextTransaction = NewA;
   // This date is going to be changed of course 
   Date Date;
-  AssignTranData(A,*NewA, 'T', Date, Amount);
+  AssignTranData(A,NewA, 'T', Date, Amount);
 
-  *Temp_B = B->transactionList;
+  Temp_B = B->transactionList;
   while (Temp_B != NULL) {
-    *Temp_B = next_Transaction(*Temp_B);
+    Temp_B = next_Transaction(Temp_B);
   }
 
-  Transaction **NewB;
-  CreateNewTran(NewB);
-  (*Temp_B)->nextTransaction = *NewB;
-  AssignTranData(B,*NewB, 'D', Date, Amount);
+  Transaction *NewB;
+  CreateNewTran(&NewB);
+  (Temp_B)->nextTransaction = NewB;
+  AssignTranData(B,NewB, 'D', Date, Amount);
 }
 
 int CheckAmount(BankAccount *A){
@@ -80,20 +80,23 @@ BankAccount p ;
 p = h;
 while ( Number <> p->Number ) {
 p = nextAcc(p);
-}
+} // to get the wanted acccount ; with the  number ;  
 p -> Balalnce = p -> Balance + D ; 
-Transaction **New_A ;
-CreateNewTran(&New_A);
-AssignTranData(h , New_A,'D', D , De) ;
-Transaction *Temp_B;
-CreateNewTran(Temp_B);
-Temp_B= p -> TransactionList ;
+Transaction *New_A ;
+CreateNewTran(&New_A); // to put the new ooperation in this node ;
+AssignTranData(h , New_A,'D', D , De) ; assign data to the opperation 
+Transaction *Temp_B; 
+CreateNewTran(&Temp_B);
+Temp_B= p -> TransactionList ; // to get the head of the opeeration ; 
  if ( Temp_B= NULL ){
  AssignList(h , Temp_ b);
 while ( Temp_B != NULL ){
  Temp_B = next_Transaction (Temp_B);
 }
-Assign
+AssignTranList( Temp_B , New_A);// assign to the anciet node the adress of the new node; 
+AssignTranList( New_A , NULL); //  assign null to the new node;
+ }
+
 
 
 
