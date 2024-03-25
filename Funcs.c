@@ -74,11 +74,22 @@ void CheckHistory(BankAccount *A){
     *Temp = next_Transaction(*Temp);
   }
 }
-static void gettheAcc(BankAccount *p ,int N  ){
-BankAccount h ;
+
+void Deposit(BankAccount *p, int Number, float D , Date D  ){
+BankAccount h ; 
 h = p;
-while (N<>h->Number
-void Deposit(BankAccount *p){
+while ( Number <> h->Number ) {
+h = nextAcc(h);
+}
+h -> Balalnce = h-> Balance + D ; 
+Transaction **New_A ;
+
+
+
+
+  
+  
+  
   
 
 
