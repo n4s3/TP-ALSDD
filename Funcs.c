@@ -74,5 +74,11 @@ void CheckHistory(BankAccount *A){
     *Temp = next_Transaction(*Temp);
   }
 }
+static void gettheAcc(BankAccount *p ,int N  ){
+BankAccount h ;
+h = p;
+while (N<>h->Number
+void Deposit(BankAccount *p){
+  
 
 
