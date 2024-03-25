@@ -75,12 +75,14 @@ void printData(Transaction * h ) {
 
 
 
-void CheckHistory(BankAccount *A , Date D ){
+void CheckHistory(BankAccount *A , Date D )
+{
   Transaction *Temp;
   CreateNewTran(&Temp);
   Temp = A->transactionList ;
   if ( Temp = NULL ) {
-    printf("there is no opperation in this account "); 
+    printf("there is no opperation in this account "); }else {
+
   while(Temp != NULL){
    if ( D = Temp -> Date ) {
      // we print the date so we create a new function to do this 
@@ -89,7 +91,11 @@ void CheckHistory(BankAccount *A , Date D ){
      
   }else {
      Temp = nextTransaction (Temp) ;
+        }
+                    }
+                                                             }
 }
+
 
 void Deposit(BankAccount *h, int Number, float De , Date D  ){
 BankAccount p ; 
@@ -118,7 +124,7 @@ void Withdrawal(BankAccount *h , int Number , float De , Date D ) {
 p = h;
 while ( Number <> p->Number ) {
 p = nextAcc(p);
-} // to get the wanted acccount ; with the  number ;  
+} // to get the  account we want  ; with the  number ;  
 p -> Balalnce = p -> Balance - De ; 
 Transaction *New_A ;
 CreateNewTran(&New_A); // to put the new ooperation in this node ;
@@ -126,13 +132,13 @@ AssignTranData(h , New_A,'W', D , De) ; //assign data to the opperation
 
 Transaction *Temp_B; 
 CreateNewTran(&Temp_B);
-Temp_B= p -> TransactionList ; // to get the head of the opeeration ; 
+Temp_B= p -> TransactionList ; // to get the head of the opeerations ; 
  if ( Temp_B= NULL ){
  AssignList(h , Temp_ B);
 while ( Temp_B != NULL ){
  Temp_B = next_Transaction (Temp_B);
 }
-AssignTranList( Temp_B , New_A);// assign to the anciet node the adress of the new node; 
+AssignTranList( Temp_B , New_A);// assign to the ancient node the adress of the new node; 
 AssignTranList( New_A , NULL); //  assign null to the new node;
 }
 void Deletecustomeraccount(BankAccount *h , int Number ){
