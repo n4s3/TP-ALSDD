@@ -64,7 +64,17 @@ static char Printdate(BankAccount *A){
   return *Date_str;
 }
 void printData(Transaction * h ) {
-  pitnf ("
+  printf ("%c\n",opcode);
+  Printf (" The Date of Opperation " );
+  printf("  %c \ ", h->Date.Year);
+  printf(" %c \ ",h-> Date.Month );
+  printf(" %c ", h->Date.Day);
+  printf("  the Balance is  : %f " , h->Balance );
+}
+  
+
+
+
 void CheckHistory(BankAccount *A , Date D ){
   Transaction *Temp;
   CreateNewTran(&Temp);
@@ -74,15 +84,16 @@ void CheckHistory(BankAccount *A , Date D ){
   while(Temp != NULL){
    if ( D = Temp -> Date ) {
      // we print the date so we create a new function to do this 
+     printData(Temp );
      Temp =nextTransaction ( Temp );
      
   }else {
-     Temp = nestTransaction (Temp) ;
+     Temp = nextTransaction (Temp) ;
 }
 
 void Deposit(BankAccount *h, int Number, float De , Date D  ){
 BankAccount p ; 
-p = h;
+p =h;
 while ( Number <> p->Number ) {
 p = nextAcc(p);
 } // to get the wanted acccount ; with the  number ;  
@@ -124,6 +135,56 @@ while ( Temp_B != NULL ){
 AssignTranList( Temp_B , New_A);// assign to the anciet node the adress of the new node; 
 AssignTranList( New_A , NULL); //  assign null to the new node;
 }
+void Deletecustomeraccount(BankAccount *h , int Number ){
+  BankAccount p; 
+  p= h; 
+  while ( Number <> p->Number ) {
+    p = nextAcc(p);
+  }
+  DeleteAccount( p) ; 
+ }  // only the admin can do this and for more clarification BankAccount * h is the head of the list of the acccounts
+void EditCodeAndOrCustumer( BankAccount * h , int Number ){
+  pritnf (" what do you want to change Code or Custumer ? ")
+  printf("\n");
+  printf ( " the code ? Click 1 );
+  printf("\n");
+  printf ( " the customer ? Click 2 );
+  printf("\n");
+  printf ( " the Both ? Click 3 );
+  int x ;
+  scanf ("enter your choice %i" , &x);
+  switch (x){
+      case 1 :
+        BankAccount p ; 
+        p =h;
+        while ( Number <> p->Number ) {
+           p = nextAcc(p);
+               } // to get the wanted acccount ; with the  number ;
+        pritnf ( "enter the new Code ") ;
+        int Code ; 
+        scanf ("%i " , &Code ); 
+        p->Code = Code ;
+      case  2 : 
+                BankAccount p ; 
+        p =h;
+        while ( Number <> p->Number ) {
+           p = nextAcc(p);
+               } // to get the wanted acccount ; with the  number ;
+        printf(" enter you new FirstName ");
+        char FirstName[15];
+        scanf ("%c",FirstName);
+         
+         
+        
+         
+            
+  
+
+            
+  
+
+
+  
 
   
 
