@@ -75,16 +75,26 @@ void CheckHistory(BankAccount *A){
   }
 }
 
-void Deposit(BankAccount *p, int Number, float D , Date D  ){
-BankAccount h ; 
-h = p;
-while ( Number <> h->Number ) {
-h = nextAcc(h);
+void Deposit(BankAccount *h, int Number, float De , Date D  ){
+BankAccount p ; 
+p = h;
+while ( Number <> p->Number ) {
+p = nextAcc(p);
 }
-h -> Balalnce = h-> Balance + D ; 
+p -> Balalnce = p -> Balance + D ; 
 Transaction **New_A ;
 CreateNewTran(&New_A);
-AssignTranData(h , New_A,
+AssignTranData(h , New_A,'D', D , De) ;
+Transaction *Temp_B;
+CreateNewTran(Temp_B);
+Temp_B= p -> TransactionList ;
+ if ( Temp_B= NULL ){
+ AssignList(h , Temp_ b);
+while ( Temp_B != NULL ){
+ Temp_B = next_Transaction (Temp_B);
+}
+Assign
+
 
 
 
