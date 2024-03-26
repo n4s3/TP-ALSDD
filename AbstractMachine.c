@@ -58,9 +58,9 @@ static char CopyChar(char *A, char X){
   return *A;
 }
 void AssignTranData(Transaction *p, char o,Date D , float B){
-  p->Balance = B;
+  p ->Balance = B;
   p ->Date = D;
-  opcode = o;
+  p ->opcode = o;
 } // changed we assign directly the leter to the transaction type 
 void AssignTranList(Transaction *p , Transaction *q ){
  p -> nextTransaction = q ; 
