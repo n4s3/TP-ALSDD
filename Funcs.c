@@ -115,7 +115,10 @@ char *Printdate(Transaction *A){
     n += sprintf (&Date_str[n], ".%d", A->Date.Day[i]);
   }
   Date_str[n] = '\0';
-  return Date_str;
+  return Date_str; // here we can't for example return *Date_str because
+  // we will return the first char of the array Date_str
+  // we used malloc to allocate memory for the local variable Date_str
+  // so we can return it properly
 }
 static void printData(Transaction * h ) {
   printf ("%c\n",h->opcode);
