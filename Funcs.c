@@ -99,12 +99,12 @@ int CheckAmount(BankAccount *A){
 static char Printdate(Transaction *A){
   Date Date;
   int i;
-  char Date_str[9] = {0};// to store the characters of the date arrays 
+  char Date_str[11] = {0};// to store the characters of the date arrays 
   // initialized with null terminator
   int n = 0;
   // we will use a function called sprintf to "convert" our array of integers into an array 
   // of characters 
-  for (i=0; i<=4; ++i){
+  for (i=0; i<=5; ++i){
     n += sprintf (&Date_str[n], "%d.", A->Date.Year[i]);
   }
   i = 0;
