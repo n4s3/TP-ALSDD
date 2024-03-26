@@ -135,14 +135,14 @@ AssignTranData(p , New_A,'W', D , Amount) ; //assign data to the opperation
 Transaction *Temp_B; 
 CreateNewTran(&Temp_B);
 Temp_B= p -> TransactionList ; // to get the head of the opeerations ; 
- if ( Temp_B= NULL ){
- AssignList(p , Temp_ B);
+ if ( Temp_B = NULL ){
+ AssignList(p , Temp_ B);}
 while ( Temp_B != NULL ){
  Temp_B = next_Transaction (Temp_B);
-}
+                }
 AssignTranList( Temp_B , New_A);// assign to the ancient node the adress of the new node; 
 AssignTranList( New_A , NULL); //  assign null to the new node;
-}
+                                                                        }
 void Deletecustomeraccount(BankAccount *h , int Number ){
   BankAccount p; 
   p= h; 
