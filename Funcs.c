@@ -97,16 +97,17 @@ void CheckHistory(BankAccount *A , Date D )
 }
 
 
-void Deposit(BankAccount *h, int Number, float De , Date D  ){
-BankAccount p ; 
+void Deposit(BankAccount *h, int Number, float Amount , Date D  ){
+BankAccount *p ; 
+createAccount(&p);
 p =h;
 while ( Number <> p->Number ) {
-p = nextAcc(p);
+p = next_Account(p);
 } // to get the wanted acccount ; with the  number ;  
-p -> Balalnce = p -> Balance + De ; 
+p -> Balalnce = p -> Balance + Amount ; 
 Transaction *New_A ;
 CreateNewTran(&New_A); // to put the new ooperation in this node ;
-AssignTranData(h , New_A,'D', D , De) ; //assign data to the opperation 
+AssignTranData(h , New_A,'D', D , Amount) ; //assign data to the opperation 
 
 Transaction *Temp_B; 
 CreateNewTran(&Temp_B);
@@ -119,16 +120,17 @@ while ( Temp_B != NULL ){
 AssignTranList( Temp_B , New_A);// assign to the anciet node the adress of the new node; 
 AssignTranList( New_A , NULL); //  assign null to the new node;
  }
-void Withdrawal(BankAccount *h , int Number , float De , Date D ) {
-  BankAccount p ; 
+void Withdrawal(BankAccount *h , int Number , float Amount , Date D ) {
+  BankAccount *p ;
+createAccount(&p);
 p = h;
 while ( Number <> p->Number ) {
 p = nextAcc(p);
 } // to get the  account we want  ; with the  number ;  
-p -> Balalnce = p -> Balance - De ; 
+p -> Balalnce = p -> Balance - Amount ; 
 Transaction *New_A ;
 CreateNewTran(&New_A); // to put the new ooperation in this node ;
-AssignTranData(h , New_A,'W', D , De) ; //assign data to the opperation 
+AssignTranData(h , New_A,'W', D , Amount) ; //assign data to the opperation 
 
 Transaction *Temp_B; 
 CreateNewTran(&Temp_B);
