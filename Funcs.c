@@ -156,7 +156,7 @@ void EditCodeAndOrCustumer( BankAccount * h , int Number ){
   printf("\n");
   printf ( " the customer ? Click 2 );
   printf("\n");
-  printf ( " the Both ? Click 3 );
+  printf ( " Both ? Click 3 );
   int x ;
   scanf ("enter your choice %i" , &x);
   switch (x){
