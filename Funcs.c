@@ -107,13 +107,13 @@ p = next_Account(p);
 p -> Balalnce = p -> Balance + Amount ; 
 Transaction *New_A ;
 CreateNewTran(&New_A); // to put the new ooperation in this node ;
-AssignTranData(h , New_A,'D', D , Amount) ; //assign data to the opperation 
+AssignTranData(p , New_A,'D', D , Amount) ; //assign data to the opperation 
 
 Transaction *Temp_B; 
 CreateNewTran(&Temp_B);
 Temp_B= p -> TransactionList ; // to get the head of the opeeration ; 
  if ( Temp_B= NULL ){
- AssignList(h , Temp_ b);
+ AssignList(p , Temp_ b);
 while ( Temp_B != NULL ){
  Temp_B = next_Transaction (Temp_B);
 }
@@ -130,13 +130,13 @@ p = nextAcc(p);
 p -> Balalnce = p -> Balance - Amount ; 
 Transaction *New_A ;
 CreateNewTran(&New_A); // to put the new ooperation in this node ;
-AssignTranData(h , New_A,'W', D , Amount) ; //assign data to the opperation 
+AssignTranData(p , New_A,'W', D , Amount) ; //assign data to the opperation 
 
 Transaction *Temp_B; 
 CreateNewTran(&Temp_B);
 Temp_B= p -> TransactionList ; // to get the head of the opeerations ; 
  if ( Temp_B= NULL ){
- AssignList(h , Temp_ B);
+ AssignList(p , Temp_ B);
 while ( Temp_B != NULL ){
  Temp_B = next_Transaction (Temp_B);
 }
