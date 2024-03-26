@@ -36,8 +36,8 @@ typedef struct BankAccount BankAccount;
 void createAccount(BankAccount **p);
 void DeleteAccount (BankAccount *p);
 void AssignAccount(BankAccount *p ,BankAccount *q);
-void AssignList(BankAccount *p , Transaction *q);// 
-void AssignList ( Transaction *p , Transaction *q); // like assign_adr(p,q);between nodes hab=ve the type transaction like AssignAccount 
+void AssignListToBank(BankAccount *p , Transaction *q);// 
+void AssignTranList(Transaction *p , Transaction *q); // like assign_adr(p,q);between nodes hab=ve the type transaction like AssignAccount 
 BankAccount *next_Account(BankAccount *p);
 Transaction *next_Transaction(Transaction *p);
 // miskate here
@@ -45,6 +45,7 @@ Transaction *next_Transaction(Transaction *p);
 void CreateNewTran(Transaction **p);
 void Ass_Date(Transaction *p ,Date D);
 void TransferAmount(BankAccount *A, BankAccount *B, float Amount);
-void AssignTranData(BankAccount *q,Transaction *p, char o, float B); // modified 
+void AssignTranData(BankAccount *q,Transaction *p, Date D,char o, float B); // modified 
 void AssignAccData(BankAccount *p, int N, int C, Name Na, float B); // modified
+char *CopyCharArray(char *A, char *B);
 #endif

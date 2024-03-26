@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <stdlib.h>
 #include "AbstractMachine.h"
 
@@ -12,8 +13,8 @@ void AssignAccount(BankAccount *p ,BankAccount *q){
   p->nextBAcc=q;
 }
 // Link the account with the head of the transaction list
-void AssignList(BankAccount *p , Transaction *q){
-  p->transactionList=q;
+void AssignListToBank(BankAccount *p , Transaction *q){
+    p->transactionList=q;
 }
 // Get the address of the Next bankaccount
 BankAccount *next_Account(BankAccount *p){
@@ -30,7 +31,7 @@ void CreateNewTran(Transaction **p){
 
 // In this function we can't copy the elemets of an array into another
 // therefore we create the function CopyArray
-static int CopyArray(int n, int *A, int *B){
+int CopyArray(int n, int *A, int *B){
   int i;
   // n is the last index
   for (i=0; i<=n; i++){
@@ -52,12 +53,17 @@ void AssignAccData(BankAccount *p, int N, int C, Name Na, float B){
   p->Balance = B;
   p->Name = Na;
 }
-// static for outside use
-static char CopyChar(char *A, char X){
-  A[0] = X;
-  return *A;
+
+char *CopyCharArray(char *A, char *B){
+  int i=0;
+  while (B[i] != '\0'){
+    A[i] = B[i];
+    ++i;
+  }
+  A[i] = '\0';
+  return A;
 }
-void AssignTranData(Transaction *p, char o,Date D , float B){
+void AssignTranData(BankAccount *q ,Transaction *p,Date D,char o, float B){
   p ->Balance = B;
   p ->Date = D;
   p ->opcode = o;
