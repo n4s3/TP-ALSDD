@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include "AbstractMachine.h"
 #include "Funcs.h"
-
-
+#include <stdlib.h>
 
 void Deposit(BankAccount *h, int Number, float Amount , Date D  ){
   BankAccount *p; 
@@ -96,31 +95,32 @@ int CheckAmount(BankAccount *A){
 }
 
 // here we define a function to printout the date
-static char Printdate(Transaction *A){
+char *Printdate(Transaction *A){
   Date Date;
   int i;
-  char Date_str[11] = {0};// to store the characters of the date arrays 
+  char* Date_str = (char*)malloc(11 * sizeof(char));
   // initialized with null terminator
   int n = 0;
   // we will use a function called sprintf to "convert" our array of integers into an array 
   // of characters 
   for (i=0; i<=5; ++i){
-    n += sprintf (&Date_str[n], "%d.", A->Date.Year[i]);
+    n += sprintf (&Date_str[n], "%d", A->Date.Year[i]);
   }
   i = 0;
   for (i=0; i<=2; i++) {
-    n += sprintf (&Date_str[n], "%d.", A->Date.Month[i]);
+    n += sprintf (&Date_str[n], ".%d", A->Date.Month[i]);
   }
   i = 0;
   for (i=0; i<=2; i++) {
-    n += sprintf (&Date_str[n], "%d", A->Date.Day[i]);
+    n += sprintf (&Date_str[n], ".%d", A->Date.Day[i]);
   }
-  return *Date_str;
+  Date_str[n] = '\0';
+  return Date_str;
 }
 static void printData(Transaction * h ) {
   printf ("%c\n",h->opcode);
   char *Date;
-  *Date = Printdate(h);
+  Date = Printdate(h);
   printf (" The Date of Opperation %s", Date);
   printf("  the Balance is  : %f " , h->Balance );
 }
