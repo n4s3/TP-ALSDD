@@ -31,14 +31,13 @@ void CreateNewTran(Transaction **p){
 
 // In this function we can't copy the elemets of an array into another
 // therefore we create the function CopyArray
-int CopyArray(int n, int *A, int *B){
+int *CopyArray(int n, int *A, int *B){
   int i;
-  // n is the last index
-  for (i=0; i<=n; i++){
+  // n is the last index for (i=0; i<=n; i++){
     // copy the elements of the array b into the array a
     A[i] = B[i];
   }
-  return *A;
+  return A;
 }
 void Ass_Date(Transaction *p ,Date D){
   CopyArray(4, p->Date.Year, D.Year);
