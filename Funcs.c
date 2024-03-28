@@ -164,6 +164,7 @@ void EditCodeAndOrCustumer( BankAccount * h , int Number ){
     BankAccount *p; 
     BankAccount *New;
     createAccount(&New);
+    createAccount(&p);
     int AccNum;
     int CodeNum;
     p=h;
@@ -202,7 +203,7 @@ void EditCodeAndOrCustumer( BankAccount * h , int Number ){
       while (temp != NULL) {
         temp = next_Account(temp);
       }
-      temp = New;
+      AssignAccount(temp , New);// link it the last one
       AssignAccount(New, NULL); // JUST inserting the New node at the tail of the 
     // list
       // now DATA assigning
@@ -215,7 +216,9 @@ void EditCodeAndOrCustumer( BankAccount * h , int Number ){
       char FirstNameAcc[15];
       char LastNameAcc[15];
       printf("Enter the customer\'s Fisrt Name : %s", FirstNameAcc);
+      scanf("%s",FirstNameAcc);
       printf("Enter the custoome\'s Last Name : %s", LastNameAcc);
+      scanf("%s",l=LastNameAcc);
       CopyCharArray(New->Name.First, FirstNameAcc);
       CopyCharArray(New->Name.Last, LastNameAcc);
     // setting the balance to 0 (conventional, I think)
