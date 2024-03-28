@@ -226,3 +226,334 @@ void EditCodeAndOrCustumer( BankAccount * h , int Number ){
       AssignTranList(New->transactionList, NULL);
   }
 }
+
+
+
+
+
+i have changed some things in withdrawal and other funcion see it 
+
+
+
+#include <stdio.h>
+#include "AbstractMachine.h"
+#include "Funcs.h"
+#include <stdlib.h>
+
+void Deposit(BankAccount *h, int Number, float Amount , Date D  ){
+  BankAccount *p; 
+  createAccount(&p);
+  p=h;
+  if ( p == NULL ){
+    printf(" there is no such Account ");
+  }else {
+     while ( Number != p->Number  &&  p != NULL)  {
+    p = next_Account(p);
+  } 
+  if ( p == NULL && Number != p->Number ){
+    printf ( " no such account ");
+  }else {
+    p->Balance= p->Balance + Amount ; 
+  Transaction *New_A;
+  CreateNewTran(&New_A); // to put the new ooperation in this node
+  AssignTranData( New_A,D,'D',Amount) ; //assign data to the opperation 
+  Transaction *Temp_B; 
+  CreateNewTran(&Temp_B);
+  Temp_B = p -> transactionList ; // to get the head of the opeeration
+  if ( Temp_B == NULL ){
+    AssignListToBank(p , Temp_B);
+    while ( Temp_B != NULL ){
+      Temp_B = next_Transaction (Temp_B);
+    }
+    AssignTranList( Temp_B , New_A);// assign to the anciet node the adress of the new node
+    AssignTranList( New_A , NULL); //  assign null to the new node
+  }
+
+  }
+  
+
+  }
+ 
+}
+void Deletecustomeraccount(BankAccount *h , int Number ){
+  BankAccount *p; 
+  p= h; 
+  while ( Number != p->Number  &&  p != NULL) {
+    p = next_Account(p);
+  }
+  DeleteAccount( p) ; 
+}  // only the admin can do this and for more clarification BankAccount * h is the head of the list of the acccounts
+void Withdrawal(BankAccount *h , int Number , float Amount , Date D ) {
+ BankAccount *p; 
+  createAccount(&p);
+  p=h;
+  if ( p == NULL ){
+    printf(" there is no Account yet you have to add one to do this opperation  ");
+  }else {
+     while ( Number != p->Number &&  p != NULL)  {
+    p = next_Account(p);
+  } 
+  if ( p == NULL && Number != p->Number ){
+    printf ( " no such account ");
+  }else {
+    if ( p -> Balance >= Amount ){     // if the amount is less we can not do this opperation so this this condition is important
+        p->Balance= p->Balance - Amount ; 
+  Transaction *New_A;
+  CreateNewTran(&New_A); // to put the new ooperation in this node
+  AssignTranData( New_A,D,'W',Amount) ; //assign data to the opperation 
+  Transaction *Temp_B; 
+  CreateNewTran(&Temp_B);
+  Temp_B = p -> transactionList ; // to get the head of the opeeration
+  if ( Temp_B == NULL ){
+    AssignListToBank(p , Temp_B);}
+    while ( Temp_B != NULL ){
+      Temp_B = next_Transaction (Temp_B);
+    }
+    AssignTranList( Temp_B , New_A);// assign to the anciet node the adress of the new node
+    AssignTranList( New_A , NULL); //  assign null to the new node
+
+
+    }else {
+      printf("Sorry , Your Balance is not enough");
+    }
+
+   
+  }
+
+  }
+  }
+void TransferAmount(BankAccount *h, int N1, int N2, float Amount, Date D ){
+BankAccount *p;
+BankAccount *q ;
+createAccount(&p);
+createAccount(&q);
+p =h ;
+q= h; 
+if (p == NULL ) {
+  printf (" you can not transfer any Amount ,  this opperation needs at least 2 account ");
+                }         else {
+  while ( N1 != p->Number && p != NULL ){
+    p = next_Account(p);
+                                           }
+  if ( p == NULL  &&  N1  != p -> Number ){
+    printf (" no such account  so you  can  not do any transfer ");
+                                             }else {
+    while ( N2 != q-> Number&&p != NULL){
+      p = next_Account(p);
+    }
+    if ( q == NULL && N2 != q -> Number)
+     {
+      printf (" error !!this ooperation needs at least 2 accounts ");
+     }else {
+      if (p -> Balance >= Amount){
+      p -> Balance = p-> Balance - Amount ; 
+      q -> Balance = q -> Balance + Amount ; 
+      Transaction *New_A;
+      Transaction *New_B;
+      Transaction *Temp;
+      Transaction *Temp_B;
+      CreateNewTran( & New_A);
+      CreateNewTran(&New_B);
+      CreateNewTran(&Temp);
+      CreateNewTran(&Temp_B);
+      Temp = p -> transactionList;
+      Temp_B = q -> transactionList;
+      AssignTranData(New_A,D,'T', - Amount);
+      AssignTranData(New_B, D , 'T', Amount );
+      while ( Temp != NULL) {
+        Temp=next_Transaction(Temp);
+                            }
+      AssignTranList(Temp , New_A);
+      AssignTranList(New_A,NULL);
+      while ( Temp_B != NULL){
+        Temp_B= next_Transaction(Temp_B);
+                            }
+       AssignTranList(Temp_B , New_B) ;
+      AssignTranList(New_B,NULL);
+
+
+                                 }  else {
+        printf ("Sorry ,  your balance is not enough ");
+           }
+     
+
+      
+
+
+
+                                  }
+                                                      }
+   
+
+                                        }
+                                                                        }
+
+int CheckAmount(BankAccount *h, int Number ){
+BankAccount *p;
+createAccount(&p);
+p=h;
+if ( p == NULL){
+  printf("there is no account ");
+}else {
+  while (Number != p -> Number  && p != NULL){
+    p=next_Account(p);
+
+  }if (Number != p ->  Number && p == NULL){
+    printf("no such Account"); 
+  }
+     else {
+    return  p -> Balance;
+  }
+}
+  
+
+}
+  
+
+
+// here we define a function to printout the date
+char *Printdate(Transaction *A){
+  Date Date;
+  int i;
+  char* Date_str = (char*)malloc(11 * sizeof(char));
+  // initialized with null terminator
+  int n = 0;
+  // we will use a function called sprintf to "convert" our array of integers into an array 
+  // of characters 
+  for (i=0; i<=5; ++i){
+    n += sprintf (&Date_str[n], "%d", A->Date.Year[i]);
+  }
+  i = 0;
+  for (i=0; i<=2; i++) {
+    n += sprintf (&Date_str[n], ".%d", A->Date.Month[i]);
+  }
+  i = 0;
+  for (i=0; i<=2; i++) {
+    n += sprintf (&Date_str[n], ".%d", A->Date.Day[i]);
+  }
+  Date_str[n] = '\0';
+  return Date_str; // here we can't for example return *Date_str because
+  // we will return the first char of the array Date_str
+  // we used malloc to allocate memory for the local variable Date_str
+  // so we can return it properly
+}
+static void printData(Transaction * h ) {
+  printf ("%c\n",h->opcode);
+  char *Date;
+  Date = Printdate(h);
+  printf (" The Date of Opperation %s", Date);
+  printf("  the Balance is  : %f " , h->Balance );
+}
+
+
+void CheckHistory(BankAccount *A , Date D )
+{
+  Transaction *Temp;
+  CreateNewTran(&Temp);
+  Temp = A->transactionList ;// you can not just do this you have to find the account as i did 
+  if ( Temp == NULL ) {
+    printf("there is no opperation in this account "); 
+  }
+  else {
+
+    while(Temp != NULL){
+      if (D.Day == Temp->Date.Day && D.Month == Temp->Date.Month && D.Year == Temp->Date.Year) {
+        // we print the data so we create a new function to do this 
+        printData(Temp);
+        Temp =next_Transaction(Temp);
+      } else {
+        Temp = next_Transaction(Temp) ;
+      }
+    }
+  }
+
+}
+
+void EditCodeAndOrCustumer( BankAccount * h , int Number ){
+  printf("Admin !, what do you want to change ? \n");
+  printf("Customer\'s Account Number: 1 \n");
+  printf("Customer\'s Name: 2\n");
+  printf("Delete Customer\'s Account: 3\n");
+  printf("Add New Customer: 4\n");
+  int x ;
+  scanf ("enter your choice %i\n" , &x);
+  switch (x){
+    BankAccount *p; 
+    BankAccount *New;
+    createAccount(&p);
+    createAccount(&New);
+   
+    int AccNum;
+    int CodeNum;
+    p=h;
+      int c_num;
+    case 1 :
+      while ( Number != p->Number ) {
+        p = next_Account(p);
+      } // to get the wanted acccount ; with the  number ;
+      printf( "enter the new Code ") ;
+      int Code ; 
+      scanf ("%i " , &Code ); 
+      p->Code = Code ;
+    case  2 : 
+      while ( Number != p->Number ) {
+        p = next_Account(p);
+      } // to get the wanted acccount ; with the  number ;
+      printf(" enter you new First Name");
+      char FirstName[15];
+      scanf ("%s",FirstName);
+      printf(" enter you new Last Name");
+      char LastName[15];
+      scanf ("%s",LastName);
+      CopyCharArray(h->Name.First, FirstName);
+      CopyCharArray(h->Name.Last, LastName);
+    case 3 :
+      printf("Enter the customer\'s number : %d", c_num);
+      scanf("%d", &c_num);
+      Deletecustomeraccount(p, c_num);
+    case 4 :
+      if (h == NULL){
+        New = h;
+      }else {
+          BankAccount *temp;
+      createAccount(&temp);
+      temp = h;
+      while (temp != NULL) {
+        temp = next_Account(temp);
+      }
+      AssignAccount(temp , New);// link it the last one
+      AssignAccount(New, NULL); // JUST inserting the New node at the tail of the 
+    // list
+
+      }
+    
+      // now DATA assigning
+      printf("Enter the account number : %d", AccNum);
+      scanf("%d", &AccNum);
+      printf("Enter the account code : %d", CodeNum);
+      scanf("%d", &CodeNum);
+      New->Number = AccNum;
+      New->Code = CodeNum;
+      char FirstNameAcc[15];
+      char LastNameAcc[15];
+      printf("Enter the customer\'s Fisrt Name : %s", FirstNameAcc);
+      scanf("%s",FirstNameAcc);
+      printf("Enter the custoome\'s Last Name : %s", LastNameAcc);
+      scanf("%s",LastNameAcc);
+      CopyCharArray(New->Name.First, FirstNameAcc);
+      CopyCharArray(New->Name.Last, LastNameAcc);
+    // setting the balance to 0 (conventional, I think)
+      New->Balance = 0;
+      AssignTranList(New->transactionList, NULL);
+  }
+}
+
+
+
+
+
+
+
+
+
+
