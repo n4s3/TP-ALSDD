@@ -35,7 +35,9 @@ int *CopyArray(int n, int *A, int *B){
   int i;
   // n is the last index for (i=0; i<=n; i++){
     // copy the elements of the array b into the array a
+ for ( i = 0 ; i < n , i ++){
     A[i] = B[i];
+                            
   }
   return A;
 }
