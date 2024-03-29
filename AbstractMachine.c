@@ -1,9 +1,8 @@
-#include <algorithm>
 #include <stdlib.h>
 #include "AbstractMachine.h"
 
 void createAccount(BankAccount **p){
-  *p=malloc(sizeof(BankAccount));
+  *p=(BankAccount * )malloc(sizeof(BankAccount));
 }
 void DeleteAccount (BankAccount *p){
   free(p);
@@ -26,7 +25,7 @@ Transaction *next_Transaction(Transaction *p){
 }
 // Create a new Transaction node
 void CreateNewTran(Transaction **p){
-  *p=malloc(sizeof(Transaction ));
+  *p=(Transaction *)(sizeof(Transaction ));
 }
 
 // In this function we can't copy the elemets of an array into another
@@ -35,7 +34,7 @@ int *CopyArray(int n, int *A, int *B){
   int i;
   // n is the last index for (i=0; i<=n; i++){
     // copy the elements of the array b into the array a
- for ( i = 0 ; i < n , i ++){
+ for ( i = 0 ; i < n ; i ++){
     A[i] = B[i];
                             
   }
@@ -64,11 +63,14 @@ char *CopyCharArray(char *A, char *B){
   A[i] = '\0';
   return A;
 }
-void AssignTranData(BankAccount *q ,Transaction *p,Date D,char o, float B){
+void AssignTranData(Transaction *p,Date D,char o, float B){
   p ->Balance = B;
   p ->Date = D;
   p ->opcode = o;
 } // changed we assign directly the leter to the transaction type 
 void AssignTranList(Transaction *p , Transaction *q ){
  p -> nextTransaction = q ; 
+}
+void DeleteTran(Transaction * p ){
+  free ( p);
 }
