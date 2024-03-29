@@ -247,13 +247,14 @@ void Deposit(BankAccount *h, int Number, float Amount , Date D  ){
   p=h;
   if ( p == NULL ){
     printf(" there is no such Account ");
-  }else {
+  }else  //first else 1{
      while ( Number != p->Number  &&  p != NULL)  {
     p = next_Account(p);
-  } 
+  } // end f while 
   if ( p == NULL && Number != p->Number ){
     printf ( " no such account ");
-  }else {
+  }//  end ofif 
+  else { // second else 
     p->Balance= p->Balance + Amount ; 
   Transaction *New_A;
   CreateNewTran(&New_A); // to put the new ooperation in this node
@@ -262,28 +263,55 @@ void Deposit(BankAccount *h, int Number, float Amount , Date D  ){
   CreateNewTran(&Temp_B);
   Temp_B = p -> transactionList ; // to get the head of the opeeration
   if ( Temp_B == NULL ){
-    AssignListToBank(p , Temp_B);}else{
+    AssignListToBank(p , Temp_B);}// end of if 
+  else{ // thid else 
     while ( Temp_B != NULL ){
       Temp_B = next_Transaction (Temp_B);
-    }
+    } // end of while 
     AssignTranList( Temp_B , New_A);// assign to the anciet node the adress of the new node
     AssignTranList( New_A , NULL); //  assign null to the new node
-  }}
+  } //end of else 3 
+  } // end of second else 
 
-  }
+  }// end of first else 
   
 
-  }
+  } //end of the function 
  
 }
 void Deletecustomeraccount(BankAccount *h , int Number ){
   BankAccount *p; 
+  BankAccount *previous ;
   p= h; 
+  previous=h;
   while ( Number != p->Number  &&  p != NULL) {
+    previous=p;
     p = next_Account(p);
   }
-  DeleteAccount( p) ; 
-}  // only the admin can do this and for more clarification BankAccount * h is the head of the list of the acccounts
+  if ( p == NULL && Number != p-> Number ){
+    printf ( " Sorry no such account ");}
+  else {   // first 
+  if ( p != NULL  && p != h){
+    p = next_Account ( p );
+    AssignAccount(previous,p);
+    DeleteAccount(p);
+  }else { //second //
+    if ( p == NULL && p !=h  ){
+      DelelteAccount(p);
+      AssignAccount (previous ,NULL);
+    }else { // third 
+      h = next ( h);
+      DeleteAccount (p);
+      
+    } // third 
+  } // second 
+  } // thirdd 
+
+    
+      
+      
+     
+}  // end of function 
 void Withdrawal(BankAccount *h , int Number , float Amount , Date D ) {
  BankAccount *p; 
   createAccount(&p);
@@ -306,7 +334,8 @@ void Withdrawal(BankAccount *h , int Number , float Amount , Date D ) {
   CreateNewTran(&Temp_B);
   Temp_B = p -> transactionList ; // to get the head of the opeeration
   if ( Temp_B == NULL ){
-    AssignListToBank(p , Temp_B);}else{
+    AssignListToBank(p , Temp_B);}
+  else{
     while ( Temp_B != NULL ){
       Temp_B = next_Transaction (Temp_B);
     }
@@ -339,8 +368,8 @@ if (p == NULL ) {
   if ( p == NULL  &&  N1  != p -> Number ){
     printf (" no such account  so you  can  not do any transfer ");
                                              }else {
-    while ( N2 != q-> Number&&p != NULL){
-      p = next_Account(p);
+    while ( N2 != q-> Number && q != NULL){
+      q = next_Account(q);
     }
     if ( q == NULL && N2 != q -> Number)
      {
