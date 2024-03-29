@@ -33,19 +33,18 @@ struct BankAccount {
 };
 typedef struct BankAccount BankAccount;
 // The AbstarctMachineFunctions
-void createAccount(BankAccount **p);
-void DeleteAccount (BankAccount *p);
-void AssignAccount(BankAccount *p ,BankAccount *q);
+void createAccount(BankAccount **p); // malloc 
+void DeleteAccount (BankAccount *p); // free
+void AssignAccount(BankAccount *p ,BankAccount *q); // like assign adr 
 void AssignListToBank(BankAccount *p , Transaction *q);// 
 void AssignTranList(Transaction *p , Transaction *q); // like assign_adr(p,q);between nodes hab=ve the type transaction like AssignAccount 
 BankAccount *next_Account(BankAccount *p);
 Transaction *next_Transaction(Transaction *p);
-// miskate here
 // void AssignData(BankAccount *p , Transaction *q , int N , int c , Name Na , int b);
 void CreateNewTran(Transaction **p);
 void Ass_Date(Transaction *p ,Date D);
-void TransferAmount(BankAccount *A, BankAccount *B, float Amount);
-void AssignTranData(BankAccount *q,Transaction *p, Date D,char o, float B); // modified 
+void AssignTranData(Transaction *p, Date D,char o, float B); // modified 
 void AssignAccData(BankAccount *p, int N, int C, Name Na, float B); // modified
 char *CopyCharArray(char *A, char *B);
+void DeleteTran(Transaction *p );
 #endif
