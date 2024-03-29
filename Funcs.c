@@ -245,16 +245,15 @@ void Deposit(BankAccount *h, int Number, float Amount , Date D  ){
   BankAccount *p; 
   createAccount(&p);
   p=h;
-  if ( p == NULL ){
-    printf(" there is no such Account ");
-  }else  //first else 1{
+  if ( p == NULL ){ // first if 
+    printf(" Sorry ,  This Account Does not exist  ");
+  }else { // first 
      while ( Number != p->Number  &&  p != NULL)  {
     p = next_Account(p);
-  } // end f while 
-  if ( p == NULL && Number != p->Number ){
-    printf ( " no such account ");
-  }//  end ofif 
-  else { // second else 
+  } 
+  if ( p == NULL && Number != p->Number ){ // second if 
+    printf ( " Sorry , This Account Does Not Exist . ");
+  }else { // second 
     p->Balance= p->Balance + Amount ; 
   Transaction *New_A;
   CreateNewTran(&New_A); // to put the new ooperation in this node
@@ -262,24 +261,25 @@ void Deposit(BankAccount *h, int Number, float Amount , Date D  ){
   Transaction *Temp_B; 
   CreateNewTran(&Temp_B);
   Temp_B = p -> transactionList ; // to get the head of the opeeration
-  if ( Temp_B == NULL ){
-    AssignListToBank(p , Temp_B);}// end of if 
-  else{ // thid else 
-    while ( Temp_B != NULL ){
+  if ( Temp_B == NULL ){ //third if 
+    AssignListToBank(p , New_A);
+    AssignTranList(New_A,NULL);}else{ // third 
+      while ( Temp_B != NULL ){
       Temp_B = next_Transaction (Temp_B);
-    } // end of while 
+    }
     AssignTranList( Temp_B , New_A);// assign to the anciet node the adress of the new node
     AssignTranList( New_A , NULL); //  assign null to the new node
-  } //end of else 3 
-  } // end of second else 
+    } // third 
+  } // second 
 
-  }// end of first else 
+  } // first 
   
 
-  } //end of the function 
+  } // end of the function 
  
-}
+
 void Deletecustomeraccount(BankAccount *h , int Number ){
+  
   BankAccount *p; 
   BankAccount *previous ;
   p= h; 
@@ -291,118 +291,128 @@ void Deletecustomeraccount(BankAccount *h , int Number ){
   if ( p == NULL && Number != p-> Number ){
     printf ( " Sorry no such account ");}
   else {   // first 
-  if ( p != NULL  && p != h){
-    p = next_Account ( p );
-    AssignAccount(previous,p);
+  if ( p != NULL  && p != h){ // normal case 
+    AssignAccount(previous,next_Account(p)); 
     DeleteAccount(p);
-  }else { //second //
-    if ( p == NULL && p !=h  ){
+  }else { //second 
+    if ( p == NULL && p !=h  ){ // in case the account is in the last node 
       DelelteAccount(p);
       AssignAccount (previous ,NULL);
-    }else { // third 
-      h = next ( h);
+    }else { // third  in case the node is the head 
+      h = next_Account ( h);
       DeleteAccount (p);
       
     } // third 
   } // second 
   } // thirdd 
 
-    
-      
-      
-     
-}  // end of function 
-void Withdrawal(BankAccount *h , int Number , float Amount , Date D ) {
+}  // only the admin can do this and for more clarification BankAccount * h is the head of the list of the acccounts
+void Withdrawal(BankAccount *h , int Number , float Amount , Date D ) { // begin of the function 
  BankAccount *p; 
   createAccount(&p);
   p=h;
   if ( p == NULL ){
-    printf(" there is no Account yet you have to add one to do this opperation  ");
-  }else {
+    printf(" there is no Account yet you have to add one to do this opperation  .");
+  }else { // first 
      while ( Number != p->Number &&  p != NULL)  {
     p = next_Account(p);
   } 
   if ( p == NULL && Number != p->Number ){
-    printf ( " no such account ");
-  }else {
+    printf ( " Sorry , Opperation uncompleted the ooperation needs at least 2 accounts . ");
+  }else { // second 
     if ( p -> Balance >= Amount ){     // if the amount is less we can not do this opperation so this this condition is important
         p->Balance= p->Balance - Amount ; 
   Transaction *New_A;
   CreateNewTran(&New_A); // to put the new ooperation in this node
-  AssignTranData( New_A,D,'W',Amount) ; //assign data to the opperation 
+  AssignTranData( New_A,D,'W', -Amount) ; //assign data to the opperation 
   Transaction *Temp_B; 
   CreateNewTran(&Temp_B);
-  Temp_B = p -> transactionList ; // to get the head of the opeeration
+  Temp_B = p -> transactionList ; // to get the head of the opeerations
   if ( Temp_B == NULL ){
-    AssignListToBank(p , Temp_B);}
-  else{
-    while ( Temp_B != NULL ){
+    AssignListToBank(p , New_A);
+    AssignTranList(New_A,NULL);}else { // third 
+      while ( Temp_B != NULL ){
       Temp_B = next_Transaction (Temp_B);
     }
     AssignTranList( Temp_B , New_A);// assign to the anciet node the adress of the new node
-    AssignTranList( New_A , NULL); }//  assign null to the new node
-
-
-    }else {
+    AssignTranList( New_A , NULL); //  assign null to the new node
+    } // third 
+   
+    }else {  // forth
       printf("Sorry , Your Balance is not enough");
-    }
+    } // forth 
 
    
-  }
+  } // second 
 
-  }
-  }
-void TransferAmount(BankAccount *h, int N1, int N2, float Amount, Date D ){
-BankAccount *p;
+  } // first 
+  DeleteAccount(p);
+  DeleteTran(New_A);
+  } // the end of the function 
+void TransferAmount(BankAccount *h, int N1, int N2, float Amount, Date D ){ // begin of the function 
+BankAccount *p;  
 BankAccount *q ;
 createAccount(&p);
 createAccount(&q);
-p =h ;
-q= h; 
-if (p == NULL ) {
+p =h ; // intialize 
+q= h;  // same 
+if (p == NULL ) { // in case 0 acc
   printf (" you can not transfer any Amount ,  this opperation needs at least 2 account ");
-                }         else {
+                }         else { // first 
   while ( N1 != p->Number && p != NULL ){
-    p = next_Account(p);
+    p = next_Account(p); // find the Account 
                                            }
   if ( p == NULL  &&  N1  != p -> Number ){
-    printf (" no such account  so you  can  not do any transfer ");
+    printf (" no such account  so you  can  not do any transfer "); // in case the account does not exist we do not need to find the other account  
                                              }else {
-    while ( N2 != q-> Number && q != NULL){
-      q = next_Account(q);
+    while ( N2 != q-> Number&&p != NULL){ // find the second  acc 
+      p = next_Account(p);
     }
     if ( q == NULL && N2 != q -> Number)
      {
-      printf (" error !!this ooperation needs at least 2 accounts ");
+      printf (" error !!this ooperation needs at least 2 accounts "); // in case the account does exist 
      }else {
-      if (p -> Balance >= Amount){
+      if (p -> Balance >= Amount){ // the amount must be less or equal to the balance 
       p -> Balance = p-> Balance - Amount ; 
       q -> Balance = q -> Balance + Amount ; 
       Transaction *New_A;
       Transaction *New_B;
       Transaction *Temp;
       Transaction *Temp_B;
-      CreateNewTran( & New_A);
+      CreateNewTran(&New_A);
       CreateNewTran(&New_B);
       CreateNewTran(&Temp);
       CreateNewTran(&Temp_B);
-      Temp = p -> transactionList;
-      Temp_B = q -> transactionList;
-      AssignTranData(New_A,D,'T', - Amount);
+      Temp = p -> transactionList; // get the head of the opperations lists of the first account 
+      Temp_B = q -> transactionList; // same second account 
+      AssignTranData(New_A,D,'T', - Amount); 
       AssignTranData(New_B, D , 'T', Amount );
-      while ( Temp != NULL) {
-        Temp=next_Transaction(Temp);
+      if ( Temp = NULL){
+        AssignListToBank(p,New_A);
+        AssignTranList(New_A,NULL);
+      }else { // first 
+        while ( Temp != NULL) {
+        Temp=next_Transaction(Temp); // find the node of opperations to add the new one 
                             }
       AssignTranList(Temp , New_A);
       AssignTranList(New_A,NULL);
-      while ( Temp_B != NULL){
+      } // first 
+       if (Temp_B= NULL){
+        AssignListToBank(q,New_B);
+        AssignTranList(New_B,NULL);
+       }else {  // second 
+        while ( Temp_B != NULL){
         Temp_B= next_Transaction(Temp_B);
                             }
        AssignTranList(Temp_B , New_B) ;
       AssignTranList(New_B,NULL);
 
+       } // second 
 
-                                 }  else {
+       
+
+
+                                 }  else { // in case the amount greater then the Balance .
         printf ("Sorry ,  your balance is not enough ");
            }
      
@@ -416,19 +426,19 @@ if (p == NULL ) {
    
 
                                         }
-                                                                        }
+                                                                        } // end of the function 
 
-int CheckAmount(BankAccount *h, int Number ){
+int CheckAmount(BankAccount *h, int Number ){ // begin of the function 
 BankAccount *p;
 createAccount(&p);
 p=h;
 if ( p == NULL){
-  printf("there is no account ");
+  printf("Soory , This ooperation can not happen it needs at least 1 Accounts . ");
 }else {
   while (Number != p -> Number  && p != NULL){
     p=next_Account(p);
 
-  }if (Number != p ->  Number && p == NULL){
+  }if (p == NULL && Number != p -> Number ){
     printf("no such Account"); 
   }
      else {
@@ -437,7 +447,7 @@ if ( p == NULL){
 }
   
 
-}
+} // end of the function 
   
 
 
@@ -482,7 +492,7 @@ void CheckHistory(BankAccount *A , Date D )
   CreateNewTran(&Temp);
   Temp = A->transactionList ;// you can not just do this you have to find the account as i did 
   if ( Temp == NULL ) {
-    printf("there is no opperation in this account "); 
+    printf(" Sorry , there is no opperation in this account "); 
   }
   else {
 
@@ -506,7 +516,11 @@ void EditCodeAndOrCustumer( BankAccount * h , int Number ){
   printf("Delete Customer\'s Account: 3\n");
   printf("Add New Customer: 4\n");
   int x ;
-  scanf ("enter your choice %i\n" , &x);
+  While (x>4 && x < 1 ){
+    printf("You must choose a number between and four.")
+    scanf ("enter your choice %i\n" , &x);
+  }
+  
   switch (x){
     BankAccount *p; 
     BankAccount *New;
@@ -518,17 +532,26 @@ void EditCodeAndOrCustumer( BankAccount * h , int Number ){
     p=h;
       int c_num;
     case 1 :
-      while ( Number != p->Number ) {
+      while ( Number != p->Number && p!= NULL ) {
         p = next_Account(p);
-      } // to get the wanted acccount ; with the  number ;
-      printf( "enter the new Code ") ;
+      } // to get the wanted acccount  with the  number ;
+      if (p == NULL && Number != p-> Number){
+       printf("the account Does not exist  you must check the Number .")
+      }else {
+         printf( "enter the new Code ") ;
       int Code ; 
-      scanf ("%i " , &Code ); 
+      scanf (" The code must contain only numbers you can not  use letters  %i " , &Code ); 
       p->Code = Code ;
+      printf ("Your code has been changed successfully");
+      }
+     
     case  2 : 
-      while ( Number != p->Number ) {
+      while ( Number != p->Number  && p != NULL) {
         p = next_Account(p);
       } // to get the wanted acccount ; with the  number ;
+      if (p == NULL && Number != p-> Number){
+       printf("the account Does not exist  you must check the Number .")
+      }else {
       printf(" enter you new First Name");
       char FirstName[15];
       scanf ("%s",FirstName);
@@ -537,6 +560,9 @@ void EditCodeAndOrCustumer( BankAccount * h , int Number ){
       scanf ("%s",LastName);
       CopyCharArray(h->Name.First, FirstName);
       CopyCharArray(h->Name.Last, LastName);
+      }
+
+     
     case 3 :
       printf("Enter the customer\'s number : %d", c_num);
       scanf("%d", &c_num);
@@ -577,8 +603,6 @@ void EditCodeAndOrCustumer( BankAccount * h , int Number ){
       AssignTranList(New->transactionList, NULL);
   }
 }
-
-
 
 
 
