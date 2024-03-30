@@ -31,7 +31,9 @@ void readAccountInfo(const char *file_name){
   char *Line_Array = NULL; // array to store the info in chars
   size_t len = 0; // the size of the "buffer"
   ssize_t char_read; // how many chars were read
-  while ((char_read = getline(&Line_Array, &len, file)) != -1) { // "-1" means EOF
+  while ((char_read = getline(&Line_Array, &len, file)) != -1) { // "-1" means EOF 
+    // char_read = getline.. is just assigning
+    //
     // We put the read data into a new Account
     char *Divided; // We use it to get the divided parts of the 
     // string in one line
