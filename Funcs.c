@@ -165,8 +165,9 @@ float CheckAmount(BankAccount *h, int Number ){ // begin of the function
   {
     while (Number != p-> Number  && p != NULL){
       p=next_Account(p);
-    }if (p == NULL ){
+    } if (p == NULL ){
       printf("no such Account");
+      return 0;
     } else {
       float  Balance  = p-> Balance;
       return Balance; 
@@ -264,9 +265,10 @@ void EditCodeAndOrCustumer( BankAccount *h , int Number ){
     case 1 :
       while ( Number != p->Number && p!= NULL ) {
         p = next_Account(p);
-      } // to get the wanted acccount  with the  number ;
+      } // to get the wanted acccount  with the number
       if (p == NULL ){
         printf("the account Does not exist  you must check the Number .");
+        return;
       }else {
         printf( "enter the new Code ") ;
         int Code ; 
@@ -280,6 +282,7 @@ void EditCodeAndOrCustumer( BankAccount *h , int Number ){
       } // to get the wanted acccount with the  number ;
       if (p == NULL ){
         printf("the account Does not exist  you must check the Number .");
+        return;
       }else {
         printf(" enter you new First Name");
         char FirstName[15];
@@ -290,17 +293,15 @@ void EditCodeAndOrCustumer( BankAccount *h , int Number ){
         CopyCharArray(h->Name.First, FirstName);
         CopyCharArray(h->Name.Last, LastName);
       }
-
-
     case 3 :
       printf("Enter the customer\'s number : ");
       scanf("%d", &c_num);
       Deletecustomeraccount(p, c_num);
+      printf("Customer\'s Account Deleted");
     case 4 :
       if (h == NULL){
         New = h;
-
-      }else {
+      } else {
         while (next_Account(temp) != NULL) {
           temp = next_Account(temp);
         }
