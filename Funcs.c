@@ -54,7 +54,7 @@ void Deletecustomeraccount(BankAccount *h , int Number ){
       DeleteAccount(p);
     }else { //second 
       // third  in case the node is the head 
-      h = next_Account ( h);
+      (*h) = next_Account ( h);
       DeleteAccount (p);
 
 
