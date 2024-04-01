@@ -187,7 +187,7 @@ float CheckAmount(BankAccount *h, int Number) { // begin of the function
       return Balance;
     }
   }
-  return 0;
+  return -1;
 } // end of the function
 
 

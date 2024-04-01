@@ -4,11 +4,16 @@
 #include "AbstractMachine.h"
 #include "Read-Write-Functions.h"
 #define max_len 256
-char *file_name = "Accounts.txt";
+const char *file_name = "Accounts.txt";
 
 void addAccountToList(BankAccount **head, char FirstName[15], char LastName[15], int Number, int Code, float Balance){
   BankAccount *new_account;
   createAccount(&new_account);
+  strcpy(new_account->Name.First, FirstName);
+  strcpy(new_account->Name.First, FirstName);
+  new_account->Number = Number;
+  new_account->Code = Code;
+  new_account->Balance = Balance;
   if (*head == NULL){
     *head = new_account;
   } else {
@@ -17,6 +22,7 @@ void addAccountToList(BankAccount **head, char FirstName[15], char LastName[15],
       current = next_Account(current);
     }
     current->nextBAcc = new_account;
+    new_account->nextBAcc = NULL;
   }
 }
 void readAccountInfo(const char *file_name, BankAccount **head){
@@ -42,4 +48,12 @@ void readAccountInfo(const char *file_name, BankAccount **head){
     }
   }
   fclose(file);
+}
+
+void writeAccountInfo(const char *file_name, BankAccount, BankAccount **head){
+  FILE *file = fopen(file_name, "r");
+  if (file == NULL){
+    printf("Error Accessing file\n");
+    return;
+  }
 }

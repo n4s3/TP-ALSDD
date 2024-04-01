@@ -1,8 +1,12 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "AbstractMachine.h"
 
 void createAccount(BankAccount **p){
   *p=(BankAccount * )malloc(sizeof(BankAccount));
+  if (p == NULL){
+    printf("Memory Allocation failed");
+  }
 }
 void DeleteAccount (BankAccount *p){
   free(p);
