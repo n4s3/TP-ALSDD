@@ -13,11 +13,11 @@ void addAccountToList(BankAccount **head, char FirstName[15], char LastName[15],
     *head = new_account;
   } else {
     BankAccount *current = *head;
-    while (current->nextBAcc != NULL){
+    while (next_Account(current) != NULL){
       current = next_Account(current);
     }
-    current->nextBAcc = new_account;
   }
+
 }
 void readAccountInfo(const char *file_name, BankAccount **head){
   // we used fopen from stdio.h with parameter r to open the .txt file
@@ -30,16 +30,14 @@ void readAccountInfo(const char *file_name, BankAccount **head){
 
   char line[max_len];
   while (fgets(line, sizeof(line), file)) {
+    BankAccount *newAcc;
+    createAccount(&newAcc);
     char FirstName[15];
     char LastName[15];
     int Number;
     int Code;
     float Balance;
-    if (sscanf(line, "%s %s %d %d %f", FirstName, LastName, &Number, &Code, &Balance) == 5) {
-      addAccountToList(head, FirstName, LastName, Number, Code, Balance);
-    } else {
-      printf("You Have Entered Wrong The wrong type\n");
-    }
+    
   }
   fclose(file);
 }
