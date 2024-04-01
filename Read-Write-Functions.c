@@ -49,11 +49,3 @@ void readAccountInfo(const char *file_name, BankAccount **head){
   }
   fclose(file);
 }
-
-void writeAccountInfo(const char *file_name, BankAccount, BankAccount **head){
-  FILE *file = fopen(file_name, "r");
-  if (file == NULL){
-    printf("Error Accessing file\n");
-    return;
-  }
-}
