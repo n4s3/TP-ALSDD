@@ -190,7 +190,6 @@ float CheckAmount(BankAccount *h, int Number) { // begin of the function
   return -1;
 } // end of the function
 
-
 char *Printdate(Transaction *A) {
   Date Date;
   int i;
@@ -342,4 +341,15 @@ void EditCodeAndOrCustumer(BankAccount *h, int Number) {
     AssignTranList(New->transactionList, NULL);
   }
   DeleteAccount(New);
+}
+
+Date readDate() {
+  Date TDate;
+  printf("Enter the day of the transaction: ");
+  scanf("%d", TDate.Day);
+  printf("Enter the month of the transaction: ");
+  scanf("%d", TDate.Month);
+  printf("Enter the year of the transaction: ");
+  scanf("%d", TDate.Year);
+  return TDate;
 }

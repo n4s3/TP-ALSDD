@@ -10,7 +10,7 @@ void addAccountToList(BankAccount **head, char FirstName[15], char LastName[15],
   BankAccount *new_account;
   createAccount(&new_account);
   strcpy(new_account->Name.First, FirstName);
-  strcpy(new_account->Name.First, FirstName);
+  strcpy(new_account->Name.Last, LastName);
   new_account->Number = Number;
   new_account->Code = Code;
   new_account->Balance = Balance;
@@ -48,4 +48,12 @@ void readAccountInfo(const char *file_name, BankAccount **head){
     }
   }
   fclose(file);
+}
+
+void writeAccountInfo(const char *file_name){
+  FILE *file = fopen(file_name, "r");
+  if (file == NULL){
+    printf("Error Accessing file\n");
+    return;
+  }
 }

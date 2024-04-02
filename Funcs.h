@@ -7,4 +7,5 @@ void CheckHistory(BankAccount *h,int Number ,  Date D);
 void Deposit( BankAccount * h , int Number , float De , Date D ) ;
 char *Printdate(Transaction *A);
 void EditCodeAndOrCustumer( BankAccount * h , int Number );
+Date readDate();
 #endif
