@@ -8,12 +8,12 @@
 // Scenario
 const int AccNum = 659036305;
 const char *file_name = "Accounts.txt";
+const char *date_file = "Date.txt";
+const char *op_file = "Opcode.txt";
+const char *bal_file = "BalanceOfEachTransaction.txt";
 
 int main() {
-  // first we create head(BankAccount)
-  BankAccount *h = NULL;
-  createAccount(&h);
-  // in case of deposit
+  // Deposit 👇
   int Amount;
   Date DateDepo;
   printf("Enter your account number: \n"); // We only print this we get the
@@ -29,10 +29,8 @@ int main() {
    the Accounts.txt file : Each Line of these text files is a representation of
    a BankAccount's Transaction Info  Of course that applies to the others as
    well*/
-  printf("Enter the amount you want to deposit :%d \n", Amount);
-  scanf("%d", &Amount);
-  // deposit
-  Deposit(h, AccNum, Amount, DateDepo);
-  // we need to update the Accounts.txt inorder to do that we need
-  // to find the AccNum in the list of Accounts in Accounts.txt
+  readTransactionList(OurAccount, date_file, op_file, bal_file);
+  DateDepo = OurAccount->transactionList->Date; // this is the first transaction
+  Amount = OurAccount->transactionList->Balance;
+  Deposit(OurAccount, AccNum, Amount, DateDepo);
 }

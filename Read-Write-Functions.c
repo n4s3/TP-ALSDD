@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/types.h>
 #define max_len 256
 static const char *file_name = "Accounts.txt";
 static const char *date_file = "Date.txt";
@@ -101,9 +100,9 @@ BankAccount *searchAccountByNumber(const char *file_name, int ToLookForNumber) {
 // we already :
 // have a linked list of bank accounts then we can associate those transactions
 // with their given bank accounts.
-void readTransactionList(BankAccount *head, const char *DateFile,
-                         const char *OpCodeFile,
-                         const char *BalanceOfEachTransactionFile) {
+Transaction *readOneTransactionInfo(BankAccount *head, const char *DateFile,
+                                    const char *OpCodeFile,
+                                    const char *BalanceOfEachTransactionFile) {
   FILE *date = fopen(date_file, "r");
   FILE *opcode = fopen(op_file, "r");
   FILE *bfile = fopen(bal_file, "r");
@@ -116,14 +115,6 @@ void readTransactionList(BankAccount *head, const char *DateFile,
   while (fgets(line, sizeof(line), date) != NULL) {
     // same approach as before
     int day, year, month;
-    // strtok explanation 👇
-    // Imagine you have a sentence, like "Hello, how are
-    // you?" and you want to separate the words. strtok is like a magic tool
-    // that you tell, "Hey, I want to split this sentence wherever there's a
-    // space or a comma." Then, every time you use strtok, it gives you one
-    // piece of the sentence, until there's nothing left. So, it's a way to take
-    // a long sentence and get each word separately. using the delimiter of
-    // choice
     char *seperated1 = strtok(line, " ");
     while (seperated1 != NULL) {
       int day1, year1, month1;
@@ -134,30 +125,29 @@ void readTransactionList(BankAccount *head, const char *DateFile,
       day = day1;
       month = month1;
       year = year1;
+
       char Op;
       while (fgets(line, sizeof(line), opcode) != NULL) {
         char *seperated2 = strtok(line, " ");
-        while (seperated2 != NULL) {
+        if (seperated2 != NULL) {
           char Op1;
           if (sscanf("%c", seperated2, &Op1) != 1) {
             printf("Reading .txt file failed successfully\n");
             exit(EXIT_FAILURE); // error handling
           }
           Op = Op1;
-          seperated2 = strtok(NULL, " ");
         }
       }
       float balance;
       while (fgets(line, sizeof(line), bfile) != NULL) {
         char *seperated3 = strtok(line, " ");
-        while (seperated3 != NULL) {
+        if (seperated3 != NULL) {
           float balance1;
           if (sscanf("%f", seperated3, &balance1) != 1) {
             printf("Reading .txt file failed successfully\n");
             exit(EXIT_FAILURE); // error handling
           }
           balance = balance1;
-          seperated3 = strtok(NULL, " ");
         }
       }
       // now that we made sure that the line was read successfully
@@ -176,7 +166,5 @@ void readTransactionList(BankAccount *head, const char *DateFile,
       seperated1 = strtok(NULL, " ");
     }
   }
-  fclose(date);
-  fclose(opcode);
-  fclose(bfile);
+  return head_t;
 }
