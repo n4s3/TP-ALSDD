@@ -55,7 +55,7 @@ void writeAccountInfo(const char *file_name, BankAccount *AddedAcc) {
           AddedAcc->Number, AddedAcc->Code, AddedAcc->Balance);
   fclose(file);
 }
-
+/*
 BankAccount *searchAccountByNumber(const char *file_name, int ToLookForNumber) {
   FILE *file = fopen(file_name, "r");
   if (file == NULL) {
@@ -94,6 +94,20 @@ BankAccount *searchAccountByNumber(const char *file_name, int ToLookForNumber) {
   fclose(file);
   return NULL; // we return a null pointer to indicate that we didn't find the
   // account
+}
+*/
+
+BankAccount *searchAccountByNumber(const char *file_name, int ToLookForNumber) {
+  BankAccount *head = NULL;
+  head = readAccountInfo(file_name, head);
+  BankAccount *current = head;
+  while (current != NULL && current->Number != ToLookForNumber) {
+    current = next_Account(current);
+    if (current == NULL) {
+      printf("This account doesn\'t exist\n");
+    }
+  }
+  return current;
 }
 
 // 👉 IMPORTANT : In order to work with this function we have to make sure that

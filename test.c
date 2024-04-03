@@ -14,6 +14,7 @@ const char *bal_file = "BalanceOfEachTransaction.txt";
 
 int main() {
   // Deposit 👇
+  BankAccount *head = NULL;
   int Amount;
   Date DateDepo;
   printf("Enter your account number: \n"); // We only print this we get the
@@ -21,7 +22,8 @@ int main() {
   // We defined An account number (refer to Scenario), we look for this Number
   // on the list (Defined Function In Funcs.h)
   BankAccount *OurAccount;
-  OurAccount = searchAccountByNumber(file_name, AccNum);
+  OurAccount =
+      searchAccountByNumber(file_name, AccNum); // We used readAccountInfo
   /* ***Clarification*** (IMPORTANT 👇): "Hypothetically" we ask the user the
    date we want to read the date associated with the "nth" bankaccount we can
    create a function that reads the Contents of (Opcode.txt, Date.txt,
