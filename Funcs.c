@@ -351,3 +351,150 @@ Date readDate() {
   printf("Enter the year of the transaction: ");
   return TDate;
 }
+
+ /// choof wech zedt wbdlt t3 delte dertha passage par variable 
+ /// also bdlt stuct t3 date dertha sting afdal jet bdlt wsi file anu drk nhtlk te3i
+
+
+// Function to read BankAccount information from file
+void readBankAccountInfo(const char *file_name, BankAccount **head) {
+    FILE *file = fopen(file_name, "r");
+    if (file == NULL) {
+        printf("Error accessing file\n");
+        return;
+    }
+
+
+    char line[100]; // Assuming each line in the file is not longer than 100 characters
+    // Read data for each BankAccount from the file
+    while (fgets(line, sizeof(line), file) != NULL) {
+        // Extract data from the line using sscanf
+        char FirstName[15];
+        char LastName[15];
+        int Number;
+        int Code;        
+        float Balance;
+       
+        if (sscanf(line, "%14s %14s %d %d %f", FirstName, LastName, &Number, &Code, &Balance) != 5) {
+            printf("Error reading line: %s\n", line);
+            continue; // Skip processing this line and move to the next one
+        }
+
+
+        // Create a new BankAccount node
+        BankAccount *newAccount;
+        createAccount(&newAccount);
+
+        // Assign values to the new node
+        newAccount->Number = Number;
+        newAccount->Code = Code;
+        strcpy(newAccount->Name.First, FirstName);
+        strcpy(newAccount->Name.Last, LastName);
+        newAccount->Balance = Balance;
+        newAccount->nextBAcc = NULL;
+
+        // Add the new node to the linked list
+        if (*head == NULL) {
+            *head = newAccount;
+        } else {
+            BankAccount *current = *head;
+            while (current->nextBAcc != NULL) {
+                current = current->nextBAcc;
+            }
+            current->nextBAcc = newAccount;
+        }
+    }
+
+    fclose(file);
+}
+   
+ void readIntegerFromFile(const char *file_name, int fieldNumber, int lineNumber, int *value) {
+    FILE *file = fopen(file_name, "r");
+    if (file == NULL) {
+        printf("Error accessing file\n");
+    }
+
+    // Skip lines until reaching the desired line
+    for (int i = 1; i < lineNumber; i++) {
+        if (fscanf(file, "%*[^\n]%*c") == EOF) {
+            printf("Error: Line number %d does not exist\n", lineNumber);
+            fclose(file);
+        }
+    }
+
+    // Skip fields until reaching the desired field
+    for (int i = 1; i < fieldNumber; i++) {
+        if (fscanf(file, "%*s") != 1) {
+            printf("Error: Field number %d does not exist in line %d\n", fieldNumber, lineNumber);
+            fclose(file);
+        }
+    }
+
+    // Read the integer from the desired field
+    if (fscanf(file, "%d", value) != 1) {
+        printf("Error: Unable to read integer from field %d in line %d\n", fieldNumber, lineNumber);
+        fclose(file);
+    }
+
+    fclose(file);
+    }
+
+
+
+
+
+int readDateFromFile(const char *file_name, int lineNumber, Date *date) {
+    FILE *file = fopen(file_name, "r");
+    if (file == NULL) {
+        printf("Error accessing file\n");
+        return 0; // Return 0 to indicate failure
+    }
+
+    // Skip lines until reaching the desired line
+    for (int i = 1; i < lineNumber; i++) {
+        if (fscanf(file, "%*[^\n]%*c") == EOF) {
+            printf("Error: Line number %d does not exist\n", lineNumber);
+            fclose(file);
+            return 0; // Return 0 to indicate failure
+        }
+    }
+
+    // Read date fields
+    if (fscanf(file, "%4s.%2s.%2s", date->Year, date->Month, date->Day) != 3) {
+        printf("Error: Unable to read date from file\n");
+        fclose(file);
+        return 0; // Return 0 to indicate failure
+    }
+
+    fclose(file);
+    return 1; // Return 1 to indicate success
+}
+
+
+void  readAmountFromFile(const char *file_name, int lineNumber, float *amount) {
+    FILE *file = fopen(file_name, "r");
+    if (file == NULL) {
+        printf("Error accessing file\n");
+    }
+
+    // Skip lines until reaching the desired line
+    for (int i = 1; i < lineNumber; i++) {
+        if (fscanf(file, "%*[^\n]%*c") == EOF) {
+            printf("Error: Line number %d does not exist\n", lineNumber);
+            fclose(file);
+        }
+    }
+
+    // Read amount
+    if (fscanf(file, "%f", amount) != 1) {
+        printf("Error: Unable to read amount from file\n");
+        fclose(file);
+        
+    }
+
+    fclose(file);
+    
+}
+
+
+
