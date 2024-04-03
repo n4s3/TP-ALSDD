@@ -197,7 +197,8 @@ char *Printdate(Transaction *A) {
   // initialized with null terminator
   int n = 0;
   // we will use a function called sprintf to "convert" our array of integers
-  // into an array of characters
+  // into an array of characters // read more on
+  // https://stackoverflow.com/questions/53069298/using-sprintf-to-convert-integer-to-string-seems-to-ignore-0
   for (i = 0; i <= 5; ++i) {
     n += sprintf(&Date_str[n], "%d", A->Date.Year[i]);
   }
@@ -346,10 +347,7 @@ void EditCodeAndOrCustumer(BankAccount *h, int Number) {
 Date readDate() {
   Date TDate;
   printf("Enter the day of the transaction: ");
-  scanf("%d", TDate.Day);
   printf("Enter the month of the transaction: ");
-  scanf("%d", TDate.Month);
   printf("Enter the year of the transaction: ");
-  scanf("%d", TDate.Year);
   return TDate;
 }

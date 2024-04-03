@@ -29,7 +29,7 @@ struct BankAccount {
   Name Name;
   float Balance;
   struct BankAccount *nextBAcc;
-  struct Transaction *transactionList;
+  Transaction *transactionList;
 };
 typedef struct BankAccount BankAccount;
 // The AbstarctMachineFunctions
@@ -46,5 +46,9 @@ void Ass_Date(Transaction *p ,Date D);
 void AssignTranData(Transaction *p, Date D,char o, float B); // modified 
 void AssignAccData(BankAccount *p, int N, int C, Name Na, float B); // modified
 char *CopyCharArray(char *A, char *B);
-void DeleteTran(Transaction *p );
+void DeleteTran(Transaction *p);
+void addAccountToList(BankAccount **head, char FirstName[15], char LastName[15],
+                      int Number, int Code, float Balance);
+void addTransactionToList(Transaction **head, char opcode, Date date,
+                          float balance);
 #endif
