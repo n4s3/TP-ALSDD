@@ -128,10 +128,10 @@ void readOneTransactionInfo(BankAccount *head, const char *DateFile,
 
   // Here's where we're going to put our temporarily transaction nodes data
   char line[max_len];
-  Transaction *head_t = NULL; // Head of the transaction list
   while (fgets(line, sizeof(line), date) != NULL) {
     char *seperate_date = strtok(line, " "); // seperate date based on spaces
-
+    Transaction *head_t = NULL;              // Head of the transaction list
+    BankAccount *current = head;
     /* 👉 Strtok Explanation :
     https://www.tutorialspoint.com/c_standard_library/strtok.htm
     you have a sentence, like "Hello, how are you?" and you want to
@@ -185,7 +185,10 @@ void readOneTransactionInfo(BankAccount *head, const char *DateFile,
       seperate_date = strtok(NULL, " ");
     }
     // Assign the transaction list to the bank account
-    AssignListToBank(head, head_t);
+    if (current != NULL) {
+      AssignListToBank(head, head_t);
+      head = next_Account(head);
+    }
     // Reset head_t for next line
     head_t = NULL;
   }
