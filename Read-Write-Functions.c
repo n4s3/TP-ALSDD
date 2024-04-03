@@ -18,7 +18,6 @@ BankAccount *readAccountInfo(const char *file_name, BankAccount *head) {
     printf("Error Accessing file\n");
     exit(EXIT_FAILURE);
   }
-  int line_number = 0;
   char line[max_len];
   while (fgets(line, sizeof(line), file) != NULL) {
     char FirstName[15];
@@ -31,9 +30,6 @@ BankAccount *readAccountInfo(const char *file_name, BankAccount *head) {
       // here in the condition we checked if all the data is in the line using
       // sscanf it returns an int of how many variable it had read(basically
       // like scanf)
-      line_number++; // we start counting the line numbers (so we can easily use
-                     // them later when associating the transaction with the
-                     // bankaccount)
       addAccountToList(&head, FirstName, LastName, Number, Code, Balance);
     } else {
       printf("You Have Entered Wrong The wrong type\n");
