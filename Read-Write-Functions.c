@@ -46,7 +46,6 @@ void writeAccountInfo(const char *file_name, BankAccount *AddedAcc) {
     printf("Error Accessing file\n");
     return;
   }
-  const BankAccount *temp;
   fprintf(file, "%s %s %d %d %f", AddedAcc->Name.First, AddedAcc->Name.Last,
           AddedAcc->Number, AddedAcc->Code, AddedAcc->Balance);
   fclose(file);
@@ -110,7 +109,7 @@ BankAccount *searchAccountByNumber(const char *file_name, int ToLookForNumber) {
 // we already :
 // have a linked list of bank accounts then we can associate those transactions
 // with their given bank accounts.
-void readOneTransactionInfo(BankAccount *head, const char *DateFile,
+void readOneTransactionList(BankAccount *head, const char *DateFile,
                             const char *OpCodeFile,
                             const char *BalanceOfEachTransactionFile) {
   // This is the same stuff we did in readAccountInfo
@@ -121,75 +120,107 @@ void readOneTransactionInfo(BankAccount *head, const char *DateFile,
     printf("Failed to open files\n");
     exit(EXIT_FAILURE);
   }
+}
+/* 👉 Strtok Explanation :
+https://www.tutorialspoint.com/c_standard_library/strtok.htm
+you have a sentence, like "Hello, how are you?" and you want to
+separate the words. strtok is like a magic tool that you tell, "Hey,
+I want to split this sentence wherever there's a space or a comma."
+Then, every time you use strtok, it gives you one piece of the
+sentence, until there's nothing left. So, it's a way to take a long
+ sentence and get each word separately.*/
+void readOneTransactionInfo(BankAccount *head, const char *DateFile,
+                            const char *OpCodeFile,
+                            const char *BalanceOfEachTransactionFile) {
 
-  // Here's where we're going to put our temporarily transaction nodes data
+  FILE *date = fopen(DateFile, "r");
+  FILE *opcode = fopen(OpCodeFile, "r");
+  FILE *bfile = fopen(BalanceOfEachTransactionFile, "r");
+  if (date == NULL || opcode == NULL || bfile == NULL) {
+    printf("Failed to open files\n");
+    exit(EXIT_FAILURE);
+  }
+
+  // Read each line from the Date file
   char line[max_len];
   while (fgets(line, sizeof(line), date) != NULL) {
-    char *seperate_date = strtok(line, " "); // seperate date based on spaces
-    Transaction *head_t = NULL;              // Head of the transaction list
+    // Tokenize the line to extract date information
+    char *separate_date = strtok(line, " ");
+    // Initialize the head of the transaction list
+    Transaction *head_t = NULL;
+    // Traverse the bank account linked list
     BankAccount *current = head;
-    /* 👉 Strtok Explanation :
-    https://www.tutorialspoint.com/c_standard_library/strtok.htm
-    you have a sentence, like "Hello, how are you?" and you want to
-    separate the words. strtok is like a magic tool that you tell, "Hey,
-    I want to split this sentence wherever there's a space or a comma."
-    Then, every time you use strtok, it gives you one piece of the
-    sentence, until there's nothing left. So, it's a way to take a long
-     sentence and get each word separately.*/
-
-    while (seperate_date != NULL) {
-      // Parse date from seperate_date
+    while (separate_date != NULL) {
       int day, year, month;
-      if (sscanf(seperate_date, "%d.%d.%d", &year, &month, &day) != 3) {
+      // Parse date information
+      if (sscanf(separate_date, "%d.%d.%d", &year, &month, &day) != 3) {
         printf("Error parsing date\n");
         exit(EXIT_FAILURE);
       }
 
       // Read opcode from OpCodeFile
       if (fgets(line, sizeof(line), opcode) != NULL) {
-        // seperate opcode based on spaces
-        char *seperate_opcode = strtok(line, " ");
-        while (seperate_opcode != NULL) {
+        char *separate_opcode = strtok(line, " ");
+        // Traverse the opcode list
+        while (separate_opcode != NULL) {
           // Read balance from BalanceOfEachTransactionFile
           if (fgets(line, sizeof(line), bfile) != NULL) {
-            // seperateize balance based on spaces
-            char *seperate_balance = strtok(line, " ");
-            while (seperate_balance != NULL) {
+            char *separate_balance = strtok(line, " ");
+            // Traverse the balance list
+            while (separate_balance != NULL) {
               // Create and add transaction node
-              Date date = {.Year = year,
-                           .Month = month,
-                           .Day = day}; // This is very important: to convert
-                                        // those integers into a Date structure
-              addTransactionToList(&head_t, seperate_opcode[0], date,
-                                   atof(seperate_balance));
-
-              // Move to the next balance seperate
-              seperate_balance = strtok(NULL, " ");
+              Date date = {.Year = year, .Month = month, .Day = day};
+              addTransactionToList(&head_t, separate_opcode[0], date,
+                                   atof(separate_balance));
+              separate_balance = strtok(NULL, " ");
             }
           } else {
             printf("Error reading balance\n");
             exit(EXIT_FAILURE);
           }
-          // Move to the next opcode seperate
-          seperate_opcode = strtok(NULL, " ");
+          separate_opcode = strtok(NULL, " ");
         }
       } else {
         printf("Error reading opcode\n");
         exit(EXIT_FAILURE);
       }
-      // Move to the next date seperate
-      seperate_date = strtok(NULL, " ");
+      separate_date = strtok(NULL, " ");
     }
-    // Assign the transaction list to the bank account
+    // Assign the transaction list to the current bank account
     if (current != NULL) {
       AssignListToBank(head, head_t);
       head = next_Account(head);
     }
-    // Reset head_t for next line
+    // Reset the head of the transaction list for the next bank account
     head_t = NULL;
   }
-
+  // Close all file pointers
   fclose(date);
   fclose(opcode);
   fclose(bfile);
 }
+
+/* ❕ This Is What this function does, after we've read the bank accounts and
+created them using readAccountInfo function
+Bank Account 1:
+  Transaction 1:
+    Date: 2022.08.15
+    Opcode: D W
+    Balance: 4.281
+  Transaction 2:
+    Date: 2022.08.15
+    Opcode: D W
+    Balance: 6.739
+
+Bank Account 2:
+  Transaction 1:
+    Date: 2022.09.22
+    Opcode: W
+    Balance: 5.082
+
+Bank Account 3:
+  Transaction 1:
+    Date: 2022.11.01
+    Opcode: T
+    Balance: 7.591
+*/

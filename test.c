@@ -31,7 +31,7 @@ int main() {
    the Accounts.txt file : Each Line of these text files is a representation of
    a BankAccount's Transaction Info  Of course that applies to the others as
    well*/
-  readTransactionList(OurAccount, date_file, op_file, bal_file);
+  readOneTransactionList(OurAccount, date_file, op_file, bal_file);
   DateDepo = OurAccount->transactionList->Date; // this is the first transaction
   Amount = OurAccount->transactionList->Balance;
   Deposit(OurAccount, AccNum, Amount, DateDepo);
