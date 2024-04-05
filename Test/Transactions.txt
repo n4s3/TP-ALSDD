@@ -1,0 +1,18 @@
+AccountNumber: 562151610
+
+Transactions:
+2024-04-01 D 1000.00
+2024-04-05 W 500.00
+2024-04-10 T 200.00
+
+AccountNumber: 659036305
+
+Transactions:
+2024-04-02 D 1500.00
+2024-04-07 W 700.00
+
+AccountNumber: 21457896
+
+Transactions:
+2024-04-03 D 800.00
+2024-04-08 T 500.00

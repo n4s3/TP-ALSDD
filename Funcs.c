@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 #define ADMIN_PASSWORD "admin123"
+#define TRANSFER 'T'
+#define DEPOSIT 'D'
+#define WITHDRAWAL 'W'
 
 bool isAdmin() {
   char password[20];
@@ -18,6 +21,14 @@ bool isAdmin() {
   }
 }
 
+void addTransaction(BankAccount *account, Date date, char opcode,
+                    float amount) {
+  Transaction *newTransaction;
+  CreateNewTran(&newTransaction);
+  AssignTranData(newTransaction, date, opcode, amount);
+  newTransaction->nextTransaction = account->transactionList;
+  account->transactionList = newTransaction;
+}
 void printBankAccounts(BankAccount *head) {
   BankAccount *current = head;
 
@@ -31,7 +42,9 @@ void printBankAccounts(BankAccount *head) {
 
     Transaction *transaction = current->transactionList;
     while (transaction != NULL) {
-      printf("Date : %s", Printdate(transaction));
+      Date Date;
+      Date = PrintDate(transaction);
+      printf("Date : %d.%d.%d", Date.Year, Date.Month, Date.Day);
       printf("Operation: %c\n", transaction->opcode);
       printf("Amount: %.2f\n", transaction->Balance);
       printf("\n");
@@ -229,38 +242,31 @@ float CheckAmount(BankAccount *h, int Number) { // begin of the function
   }
   return -1;
 } // end of the function
-
-char *Printdate(Transaction *A) {
-  Date Date;
-  int i;
-  char *Date_str = (char *)malloc(11 * sizeof(char));
-  // initialized with null terminator
-  int n = 0;
-  // we will use a function called sprintf to "convert" our array of integers
-  // into an array of characters // read more on
-  // https://stackoverflow.com/questions/53069298/using-sprintf-to-convert-integer-to-string-seems-to-ignore-0
-  for (i = 0; i <= 5; ++i) {
-    n += sprintf(&Date_str[n], "%d", A->Date.Year[i]);
+Date PrintDate(Transaction *Tran) {
+  if (Tran == NULL) {
+    printf("This Transaction Does not exsist\n");
+    exit(EXIT_FAILURE);
   }
-  i = 0;
-  for (i = 0; i <= 2; i++) {
-    n += sprintf(&Date_str[n], ".%d", A->Date.Month[i]);
+  Date date;
+  date.Year = Tran->Date.Year;
+  date.Month = Tran->Date.Month;
+  date.Day = Tran->Date.Day;
+  return date;
+}
+BankAccount *findAccountByNumber(BankAccount *head, int accountNumber) {
+  BankAccount *current = head;
+  while (current != NULL) {
+    if (current->Number == accountNumber) {
+      return current;
+    }
+    current = current->nextBAcc;
   }
-  i = 0;
-  for (i = 0; i <= 2; i++) {
-    n += sprintf(&Date_str[n], ".%d", A->Date.Day[i]);
-  }
-  Date_str[n] = '\0';
-  return Date_str; // here we can't for example return *Date_str because
-  // we will return the first char of the array Date_str
-  // we used malloc to allocate memory for the local variable Date_str
-  // so we can return it properly
+  return NULL; // Account not found
 }
 static void printData(Transaction *h) {
   printf("%c\n", h->opcode);
-  char *Date;
-  Date = Printdate(h);
-  printf("The Date of Operation %s \n", Date);
+  Date Date = PrintDate(h);
+  printf("The Date of Operation %d.%d.%d \n", Date.Year, Date.Month, Date.Day);
   printf("The Balance is  : %f \n", h->Balance);
 }
 

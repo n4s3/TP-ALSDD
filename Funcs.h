@@ -13,5 +13,8 @@ void EditCodeAndOrCustomer(BankAccount *h, int Number, int x);
 void printBankAccounts(BankAccount *h);
 void Withdrawal(BankAccount *h, int Number, float Amount,
                 Date D);
-Date readDate();
+
+BankAccount *findAccountByNumber(BankAccount *head, int accountNumber);
+void addTransaction(BankAccount *Account, Date date, char opcode, float amount);
+Date PrintDate(Transaction *Tran);
 #endif

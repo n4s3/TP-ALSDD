@@ -16,10 +16,11 @@
 #define DATE_FILE "Date.txt"
 #define OPCODE_FILE "Opcode.txt"
 #define BALANCE_FILE "BalanceOfEachTransaction.txt"
+#define TRANSACTIONS_FILE "Transactions.txt"
 int main() {
   BankAccount *head = NULL;
   head = readAccountInfo(ACCOUNTS_FILE, head);
-  readOneTransactionList(head, DATE_FILE, OPCODE_FILE, BALANCE_FILE);
+  readTransaction(head, TRANSACTIONS_FILE);
   Transaction *head_t = NULL;
   head_t = head->transactionList;
   int choice;
@@ -170,6 +171,5 @@ int main() {
       printf("Invalid choice. Please enter a number between 1 and 9.\n");
     }
   }
-  printBankAccounts(head);
   return 0;
 }
